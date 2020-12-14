@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Mareu</string>
+    <string name="meeting_title">Nom - Heure - Organisateur</string>
+    <string name="meeting_attendees">maxime@lamzone.com, alex@lamzone.com</string>
+</resources>
