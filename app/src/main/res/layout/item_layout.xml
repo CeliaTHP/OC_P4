@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/item_layout"
-    >
+    android:id="@+id/item_layout">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/meeting_card_view"
@@ -21,13 +20,12 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_margin="5dp">
 
             <ImageView
                 android:id="@+id/meeting_image"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_margin="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/ic_no_accessibility"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +36,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
                 android:text="@string/meeting_title"
                 android:textColor="@color/black"
                 android:textSize="16sp"
@@ -61,12 +58,14 @@
                 app:layout_constraintStart_toEndOf="@id/meeting_image"
                 app:layout_constraintTop_toBottomOf="@id/meeting_title" />
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+            <ImageButton
+                android:id="@+id/meetings_delete_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
+                android:background="@android:color/transparent"
                 android:src="@drawable/ic_trash"
-                app:layout_constraintBottom_toBottomOf="@id/meeting_attendees"
+                app:layout_constraintBottom_toTopOf="@id/meeting_attendees"
                 app:layout_constraintEnd_toEndOf="parent" />
 
 

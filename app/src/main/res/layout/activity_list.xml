@@ -3,16 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:context=".ui.list.ListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/meeting_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:listitem="@layout/item_layout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/list_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"

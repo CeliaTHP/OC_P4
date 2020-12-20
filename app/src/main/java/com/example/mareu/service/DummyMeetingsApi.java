@@ -29,4 +29,5 @@ public class DummyMeetingsApi implements MeetingsApi {
         return meeting.getAttendees();
     }
 
+
 }

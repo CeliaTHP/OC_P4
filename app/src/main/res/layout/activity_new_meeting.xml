@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".ui.list.NewMeetingActivity"
+    android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/new_meeting_pres"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_meeting_pres"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/new_meeting_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/new_meeting_title"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/new_meeting_pres"
+            app:layout_constraintTop_toBottomOf="@+id/new_meeting_pres" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/new_meeting_title_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/new_meeting_title_hint"
+            android:textColorHint="@color/medium_grey"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/new_meeting_title"
+            app:layout_constraintTop_toBottomOf="@+id/new_meeting_title" />
+
+        <TextView
+            android:id="@+id/new_meeting_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_meeting_time"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/new_meeting_title_field"
+            app:layout_constraintTop_toBottomOf="@+id/new_meeting_title_field" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/new_meeting_time_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/new_meeting_time_field"
+            android:textColorHint="@color/medium_grey"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/new_meeting_time"
+            app:layout_constraintTop_toBottomOf="@id/new_meeting_time" />
+
+        <TextView
+            android:id="@+id/new_meeting_room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_meeting_room"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/new_meeting_time_field"
+            app:layout_constraintTop_toBottomOf="@id/new_meeting_time_field" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/new_meeting_room_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/new_meeting_room_field"
+            android:textColorHint="@color/medium_grey"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/new_meeting_room"
+            app:layout_constraintTop_toBottomOf="@id/new_meeting_room" />
+
+
+</LinearLayout>

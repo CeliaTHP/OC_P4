@@ -1,5 +1,12 @@
 <resources>
-    <string name="app_name">Mareu</string>
-    <string name="meeting_title">Nom - Heure - Organisateur</string>
+    <string name="app_name">OC_P4</string>
+    <string name="meeting_title"> %1$s - %2$s - %3$S</string>
     <string name="meeting_attendees">maxime@lamzone.com, alex@lamzone.com</string>
+    <string name="new_meeting_pres">Créer une réunion</string>
+    <string name="new_meeting_title">Nom de ma réunion</string>
+    <string name="new_meeting_title_hint">Brainstorming Projet</string>
+    <string name="new_meeting_time">Horaire</string>
+    <string name="new_meeting_time_field">00h00</string>
+    <string name="new_meeting_room">Salle</string>
+    <string name="new_meeting_room_field">Waluigi</string>
 </resources>

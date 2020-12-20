@@ -1,18 +1,18 @@
 package com.example.mareu.model;
 
+import android.widget.ImageView;
+
 import java.util.List;
 
 public class Meeting {
     private String title;
-    private String date;
     private String time;
     private String room;
-    private String imageUrl; //custom image or generate //round image
+    private ImageView pic;
     private List<String> attendees;
 
-    public Meeting(String title, String date, String time, String room, List<String> attendees) {
+    public Meeting(String title, String date, String time, String room, List<String> attendees, Boolean isAccessible) {
         this.title = title;
-        this.date = date;
         this.time = time;
         this.room = room;
         this.attendees = attendees;
@@ -24,14 +24,6 @@ public class Meeting {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public String getTime() {
@@ -50,6 +42,14 @@ public class Meeting {
         this.room = room;
     }
 
+    public ImageView getPic() {
+        return pic;
+    }
+
+    public void setPic(ImageView pic) {
+        this.pic = pic;
+    }
+
     public List<String> getAttendees() {
         return attendees;
     }
@@ -57,4 +57,5 @@ public class Meeting {
     public void setAttendees(List<String> attendees) {
         this.attendees = attendees;
     }
+
 }
