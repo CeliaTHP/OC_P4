@@ -23,7 +23,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
     private Context context;
     private MeetingsApi meetingsApi;
 
-    public MeetingAdapter(Context context,MeetingsApi meetingsApi,List<Meeting> meetings) {
+    public MeetingAdapter(Context context, MeetingsApi meetingsApi, List<Meeting> meetings) {
         this.context = context;
         this.meetingsApi = meetingsApi;
         this.mMeetings = meetings;
@@ -49,7 +49,8 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
         holder.itemLayoutBinding.meetingsDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                meetingsApi.deleteMeeting(meeting); //null pointer
+                meetingsApi.deleteMeeting(meeting);
+                notifyItemRemoved(position);
             }
         });
 
