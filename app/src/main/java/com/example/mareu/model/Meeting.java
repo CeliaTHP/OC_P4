@@ -11,7 +11,7 @@ public class Meeting {
     private ImageView pic;
     private List<String> attendees;
 
-    public Meeting(String title, String date, String time, String room, List<String> attendees, Boolean isAccessible) {
+    public Meeting(String title, String date, String time, String room, List<String> attendees) {
         this.title = title;
         this.time = time;
         this.room = room;

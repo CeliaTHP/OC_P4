@@ -8,52 +8,49 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mareu.R;
-import com.example.mareu.databinding.ActivityListBinding;
+import com.example.mareu.databinding.ActivityMeetingListBinding;
+import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
-import com.example.mareu.service.DummyMeetingsApi;
-import com.example.mareu.service.DummyMeetingsGenerator;
 import com.example.mareu.service.MeetingsApi;
 
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity {
+public class MeetingListActivity extends AppCompatActivity {
 
     private Context context;
-    private ActivityListBinding mBinding;
-    private MeetingAdapter adapter;
-    private List<Meeting> meetings;
+    private ActivityMeetingListBinding mBinding;
+    private MeetingsApi meetingsApi;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_list);
+        meetingsApi = DI.getMeetingApi();
+        initView();
         initRecyclerView();
-    }
-
-
-    private void initRecyclerView() {
-        mBinding = ActivityListBinding.inflate(getLayoutInflater());
-        setContentView(mBinding.getRoot());
-        mBinding.meetingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        meetings = DummyMeetingsGenerator.generateMeetings();
-        adapter = new MeetingAdapter(this, meetings);
-        mBinding.meetingRecyclerView.setAdapter(adapter);
         initFabButton();
     }
 
+    private void initView() {
+        mBinding = ActivityMeetingListBinding.inflate(getLayoutInflater());
+        View view = mBinding.getRoot();
+        setContentView(view);
+    }
+
+    private void initRecyclerView() {
+        mBinding.meetingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        List<Meeting> meetings = meetingsApi.getMeetings();
+        MeetingAdapter adapter = new MeetingAdapter(this, meetingsApi, meetings);
+        mBinding.meetingRecyclerView.setAdapter(adapter);
+    }
+
     private void initFabButton() {
-        context = getApplicationContext();
         mBinding.listFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //création Meeting
-                Log.d("RV", "Création de meeting");
-                Intent intent = new Intent(context, NewMeetingActivity.class);
+                Intent intent = new Intent(MeetingListActivity.this, NewMeetingActivity.class);
                 startActivity(intent);
             }
         });

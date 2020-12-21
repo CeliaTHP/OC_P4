@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/item_layout">
+    android:layout_margin="5dp"
+    android:background="@color/medium_grey"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/meeting_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="5dp"
-        app:cardCornerRadius="4dp">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,9 +27,10 @@
 
             <ImageView
                 android:id="@+id/meeting_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_no_accessibility"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_pink_pic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -36,12 +40,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/meeting_title"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/meeting_image"
-                app:layout_constraintTop_toTopOf="@+id/meeting_image" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/meeting_attendees"
@@ -49,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:ellipsize="end"
                 android:maxEms="14"
                 android:maxLines="1"
@@ -60,12 +66,12 @@
 
             <ImageButton
                 android:id="@+id/meetings_delete_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginEnd="10dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_trash"
-                app:layout_constraintBottom_toTopOf="@id/meeting_attendees"
+                app:layout_constraintBottom_toBottomOf="@id/meeting_attendees"
                 app:layout_constraintEnd_toEndOf="parent" />
 
 
@@ -74,4 +80,4 @@
     </androidx.cardview.widget.CardView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

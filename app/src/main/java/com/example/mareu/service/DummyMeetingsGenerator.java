@@ -12,10 +12,10 @@ import java.util.List;
 public class DummyMeetingsGenerator {
 
     private final static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
-            new Meeting("Reunion A", "12/04/2020", "14h00", "Peach", null, true),
-            new Meeting("Reunion B", "14/02/2020", "17h00", "Mario", null, false),
-            new Meeting("Reunion C", "28/02/2020", "08h00", "Luigi", null, false),
-            new Meeting("Reunion D", "08/06/2020", "11h30", "Wario", null, true)
+            new Meeting("Reunion A", "12/04/2020", "14h00", "Peach", null),
+            new Meeting("Reunion B", "14/02/2020", "17h00", "Mario", null),
+            new Meeting("Reunion C", "28/02/2020", "08h00", "Luigi", null),
+            new Meeting("Reunion D", "08/06/2020", "11h30", "Wario", null)
     );
 
     public static List<Meeting> generateMeetings() {

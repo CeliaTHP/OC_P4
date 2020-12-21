@@ -13,4 +13,5 @@ public interface MeetingsApi {
     void deleteMeeting(Meeting meeting);
 
     List<String> getMeetingAttendees(Meeting meeting);
+
 }

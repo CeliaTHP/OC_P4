@@ -2,9 +2,6 @@ package com.example.mareu.ui.list;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +9,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewbinding.ViewBinding;
 
 import com.example.mareu.R;
-import com.example.mareu.databinding.ActivityListBinding;
 import com.example.mareu.databinding.ItemLayoutBinding;
 import com.example.mareu.model.Meeting;
-import com.example.mareu.service.DummyMeetingsApi;
 import com.example.mareu.service.MeetingsApi;
 
 import java.util.List;
@@ -26,12 +20,13 @@ import java.util.List;
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewHolder> {
 
     private final List<Meeting> mMeetings;
-    Context context;
-    MeetingsApi meetingsApi;
+    private Context context;
+    private MeetingsApi meetingsApi;
 
-    public MeetingAdapter(Context context,List<Meeting> meetings) {
+    public MeetingAdapter(Context context,MeetingsApi meetingsApi,List<Meeting> meetings) {
         this.context = context;
-        mMeetings = meetings;
+        this.meetingsApi = meetingsApi;
+        this.mMeetings = meetings;
     }
 
     @NonNull
@@ -48,13 +43,13 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
         String name = meeting.getTitle();
         String time = meeting.getTime();
         String room = meeting.getRoom();
-        String full_title = holder.itemView.getContext().getString(R.string.meeting_title, name, time, room);
-        holder.itemLayoutBinding.meetingTitle.setText(full_title);
+        String fullTitle = holder.itemView.getContext().getString(R.string.meeting_title, name, time, room);
+        holder.itemLayoutBinding.meetingTitle.setText(fullTitle);
 
         holder.itemLayoutBinding.meetingsDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //  meetingsApi.deleteMeeting(meeting); //null pointer
+                meetingsApi.deleteMeeting(meeting); //null pointer
             }
         });
 

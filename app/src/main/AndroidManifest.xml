@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mareu">
 
-        <activity android:name=".ui.list.ListActivity">
+        <activity android:name=".ui.list.MeetingListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -18,13 +18,10 @@ public class MeetingViewHolder {
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView meetingInfos;
-
         public ItemLayoutBinding itemLayoutBinding;
 
         public ViewHolder(ItemLayoutBinding itemLayoutBinding) {
             super(itemLayoutBinding.getRoot());
-            meetingInfos =  itemLayoutBinding.meetingTitle;
             this.itemLayoutBinding = itemLayoutBinding;
         }
     }

@@ -9,4 +9,5 @@
     <string name="new_meeting_time_field">00h00</string>
     <string name="new_meeting_room">Salle</string>
     <string name="new_meeting_room_field">Waluigi</string>
+    <string name="meeting_creation">Valider</string>
 </resources>

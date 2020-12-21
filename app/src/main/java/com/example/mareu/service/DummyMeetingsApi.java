@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DummyMeetingsApi implements MeetingsApi {
 
-    private List<Meeting> meetingList = new ArrayList<>();
+    private List<Meeting> meetingList = DummyMeetingsGenerator.generateMeetings();
 
     @Override
     public List<Meeting> getMeetings() {
