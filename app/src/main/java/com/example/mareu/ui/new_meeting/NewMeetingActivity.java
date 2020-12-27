@@ -1,6 +1,7 @@
 package com.example.mareu.ui.new_meeting;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
@@ -25,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class NewMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class NewMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private ActivityNewMeetingLinearBinding mBinding;
     private Calendar calendar;
@@ -44,6 +46,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         setToolbar();
         initSpinner();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) initDatePicker();
+        initTimePicker();
         initAddButton();
 
     }
@@ -68,6 +71,18 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
             }
         });
 
+    }
+
+    private void initTimePicker() {
+        mBinding.newMeetingTimeField.setFocusable(false);
+        mBinding.newMeetingTimeField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment timePicker = new TImePickerFragment();
+                timePicker.show(getSupportFragmentManager(), "time picker");
+
+            }
+        });
     }
 
     private void initSpinner() {
@@ -100,5 +115,14 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         String fullDate = DateFormat.getDateInstance(DateFormat.SHORT).format(c.getTime());
         mBinding.newMeetingDateField.setText(fullDate);
         Log.d("DATE", fullDate);
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        String myHour = hourOfDay + "";
+        String myMinute = minute + "";
+        String fullTime = myHour +":"+ myMinute;
+        mBinding.newMeetingTimeField.setText(fullTime);
+        Log.d("TIME", fullTime);
     }
 }
