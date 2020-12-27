@@ -10,4 +10,22 @@
     <string name="new_meeting_room">Salle</string>
     <string name="new_meeting_room_field">Waluigi</string>
     <string name="meeting_creation">Valider</string>
+    <string name="list_toolbar_title">Liste des réunions</string>
+    <string name="no_meeting">Il n\'y a pas de réunion de prévue. Créez la votre ici </string>
+    <string name="new_meeting_date">Date</string>
+    <string name="new_meeting_date_field">26/05</string>
+
+    <string-array name="spinner_rooms">
+        <item>Peach</item>
+        <item>Mario</item>
+        <item>Luigi</item>
+        <item>Waluigi</item>
+        <item>Harmony</item>
+        <item>Daisy</item>
+        <item>Toad</item>
+        <item>Goomba</item>
+        <item>Choomp</item>
+        <item>Bones</item>
+    </string-array>
+
 </resources>

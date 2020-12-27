@@ -1,5 +1,10 @@
 package com.example.mareu.service;
 
+import android.app.ListActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+
+import com.example.mareu.databinding.ActivityMeetingListBinding;
 import com.example.mareu.model.Meeting;
 
 import java.util.ArrayList;
