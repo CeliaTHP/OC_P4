@@ -1,5 +1,6 @@
 package com.example.mareu.ui.new_meeting;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,15 +11,21 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.mareu.R;
 import com.example.mareu.databinding.ActivityNewMeetingLinearBinding;
 
+import java.text.DateFormat;
+import java.time.DayOfWeek;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Locale;
 
-public class NewMeetingActivity extends AppCompatActivity {
+public class NewMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private ActivityNewMeetingLinearBinding mBinding;
     private Calendar calendar;
@@ -35,8 +42,8 @@ public class NewMeetingActivity extends AppCompatActivity {
 
         initView();
         setToolbar();
-        initDatePicker();
         initSpinner();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) initDatePicker();
         initAddButton();
 
     }
@@ -52,29 +59,20 @@ public class NewMeetingActivity extends AppCompatActivity {
     }
 
     private void initDatePicker() {
+        mBinding.newMeetingDateField.setFocusable(false);
         mBinding.newMeetingDateField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calendar = Calendar.getInstance();
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int month = calendar.get(Calendar.MONTH);
-                int year = calendar.get(Calendar.YEAR);
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    //datepicker
-                } else {
-                    String meetingDate = mBinding.newMeetingDateField.getText().toString();
-                    Log.d("DATE", meetingDate);
-                }
+                DialogFragment datePicker = new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(), "date picker");
             }
-
         });
 
     }
 
-    private void initSpinner(){
+    private void initSpinner() {
         spinner = mBinding.newMeetingRoomSpinner;
-        ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(this,R.array.spinner_rooms, android.R.layout.simple_spinner_item);
+        ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.spinner_rooms, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
     }
@@ -91,5 +89,16 @@ public class NewMeetingActivity extends AppCompatActivity {
                 String meetingRoom = mBinding.newMeetingRoomField.getText();*/
             }
         });
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String fullDate = DateFormat.getDateInstance(DateFormat.SHORT).format(c.getTime());
+        mBinding.newMeetingDateField.setText(fullDate);
+        Log.d("DATE", fullDate);
     }
 }
