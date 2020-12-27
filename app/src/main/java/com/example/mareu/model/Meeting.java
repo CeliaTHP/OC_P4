@@ -13,12 +13,11 @@ public class Meeting {
     private Drawable pic;
     private List<String> attendees;
 
-    public Meeting(String title, String date, String time, Room room, List<String> attendees) {
+    public Meeting(String title, String date, String time, Room room) {
         this.title = title;
         this.date = date;
         this.time = time;
         this.room = room;
-        this.attendees = attendees;
     }
 
     public String getTitle() {

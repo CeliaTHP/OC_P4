@@ -16,16 +16,16 @@
     <string name="new_meeting_date_field">26/05</string>
 
     <string-array name="spinner_rooms">
-        <item>Peach</item>
-        <item>Mario</item>
-        <item>Luigi</item>
-        <item>Waluigi</item>
-        <item>Harmony</item>
-        <item>Daisy</item>
-        <item>Toad</item>
-        <item>Goomba</item>
-        <item>Choomp</item>
-        <item>Bones</item>
+        <item>PEACH</item>
+        <item>MARIO</item>
+        <item>LUIGI</item>
+        <item>WALUIGI</item>
+        <item>HARMONY</item>
+        <item>DAISY</item>
+        <item>TOAD</item>
+        <item>GOOMBA</item>
+        <item>CHOOMP</item>
+        <item>BONES</item>
     </string-array>
 
 </resources>

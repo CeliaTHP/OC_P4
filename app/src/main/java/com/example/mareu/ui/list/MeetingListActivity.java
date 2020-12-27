@@ -29,6 +29,7 @@ import java.util.List;
 public class MeetingListActivity extends AppCompatActivity {
 
     private ActivityMeetingListBinding mBinding;
+    MeetingAdapter adapter;
     private MeetingsApi meetingsApi;
 
 
@@ -46,6 +47,12 @@ public class MeetingListActivity extends AppCompatActivity {
 
     }
 
+    public void onResume() {
+        super.onResume();
+        //update whatever your list
+        adapter.notifyDataSetChanged();
+    }
+
     private void initView() {
         setContentView(mBinding.getRoot());
     }
@@ -53,7 +60,7 @@ public class MeetingListActivity extends AppCompatActivity {
     private void initRecyclerView() {
         mBinding.meetingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Meeting> meetings = meetingsApi.getMeetings();
-        MeetingAdapter adapter = new MeetingAdapter(meetingsApi, meetings);
+        adapter = new MeetingAdapter(meetingsApi, meetings);
         mBinding.meetingRecyclerView.setAdapter(adapter);
     }
 
@@ -72,8 +79,4 @@ public class MeetingListActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.list_toolbar_title);
     }
 
-    public void setEmptyObserver() {
-        ImageView arrow = this.findViewById(R.id.meetings_arrow);
-        arrow.setVisibility(View.INVISIBLE);
-    }
 }
