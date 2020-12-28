@@ -1,4 +1,4 @@
-package com.example.mareu.service;
+package com.example.mareu.service.RoomService;
 
 import com.example.mareu.R;
 import com.example.mareu.model.Meeting;
@@ -7,9 +7,9 @@ import com.example.mareu.model.Room;
 import java.util.Arrays;
 import java.util.List;
 
-public class RoomsGenerator {
+public class DummyRoomsGenerator {
 
-    private final static List<Room> ROOM = Arrays.asList(
+    private final static List<Room> DUMMY_ROOMS = Arrays.asList(//USE ARRAY-ITEMS
             new Room("PEACH", R.drawable.ic_pink_pic),
             new Room("MARIO", R.drawable.ic_red_pic),
             new Room("LUIGI", R.drawable.ic_green_pic),
@@ -23,8 +23,7 @@ public class RoomsGenerator {
     );
 
     public static List<Room> generateRoom() {
-        return ROOM;
+        return DUMMY_ROOMS;
     }
-
 
 }

@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">OC_P4</string>
-    <string name="meeting_title"> %1$s - %2$s - %3$S</string>
+    <string name="meeting_title"> %1$s - %2$s - %3$s</string>
     <string name="meeting_attendees">maxime@lamzone.com, alex@lamzone.com</string>
     <string name="new_meeting_pres">Créer une réunion</string>
     <string name="new_meeting_title">Nom de ma réunion</string>
     <string name="new_meeting_title_hint">Brainstorming Projet</string>
     <string name="new_meeting_time">Horaire</string>
-    <string name="new_meeting_time_field">00h00</string>
+    <string name="new_meeting_time_field">00:00</string>
     <string name="new_meeting_room">Salle</string>
     <string name="new_meeting_room_field">Waluigi</string>
     <string name="meeting_creation">Valider</string>
@@ -14,6 +14,8 @@
     <string name="no_meeting">Il n\'y a pas de réunion de prévue. Créez la votre ici </string>
     <string name="new_meeting_date">Date</string>
     <string name="new_meeting_date_field">26/05</string>
+    <string name="registered_date">%1$d-%2$d-%3$d</string>
+    <string name="registered_time">%1$d:%2$d</string>
 
     <string-array name="spinner_rooms">
         <item>PEACH</item>

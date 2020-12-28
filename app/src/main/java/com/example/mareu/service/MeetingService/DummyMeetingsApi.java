@@ -1,21 +1,12 @@
-package com.example.mareu.service;
+package com.example.mareu.service.MeetingService;
 
-import android.app.ListActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-
-import com.example.mareu.databinding.ActivityMeetingListBinding;
 import com.example.mareu.model.Meeting;
-import com.example.mareu.model.Room;
-import com.example.mareu.ui.list.MeetingAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DummyMeetingsApi implements MeetingsApi {
 
     private List<Meeting> meetingList = DummyMeetingsGenerator.generateMeetings();
-    private List<Room> roomList = RoomsGenerator.generateRoom();
 
 
     @Override
@@ -38,8 +29,7 @@ public class DummyMeetingsApi implements MeetingsApi {
         return meeting.getAttendees();
     }
 
-    @Override
-    public List<Room> getRooms() { return roomList;}
+
 
 
 }

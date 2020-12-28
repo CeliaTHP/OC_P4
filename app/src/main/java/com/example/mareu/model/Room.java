@@ -3,26 +3,26 @@ package com.example.mareu.model;
 public class Room {
 
     private String mName;
-    private int mPicId;
+    private int mColor;
 
-    public Room(String name, int picId) {
+    public Room(String name, int color) {
         this.mName = name;
-        this.mPicId = picId;
+        this.mColor = color;
     }
 
-    public String getmName() {
+    public String getName() {
         return mName;
     }
 
-    public void setmName(String mName) {
+    public void setName(String mName) {
         this.mName = mName;
     }
 
-    public int getmPicId() {
-        return mPicId;
+    public int getColor() {
+        return mColor;
     }
 
-    public void setmPicId(int mPicId) {
-        this.mPicId = mPicId;
+    public void setColor(int color) {
+        this.mColor = color;
     }
 }
