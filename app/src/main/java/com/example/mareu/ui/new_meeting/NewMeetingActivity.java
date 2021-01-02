@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -119,6 +120,9 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
     }
 
     private void initAddButton() {
+
+        mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees,getAttendees().length()));
+
         mBinding.newMeetingAddAttendee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,22 +138,24 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
                 String meetingTitle = mBinding.newMeetingTitleField.getText().toString();
                 String meetingDate = mBinding.newMeetingDateField.getText().toString();
                 String meetingTime = mBinding.newMeetingTimeField.getText().toString();
+                String attendees = getAttendees();
+
 
                 //TODO add attendees
                 //TODO display attendees in Chip
                 //TODO verify mail format before adding it
-                meeting = new Meeting(meetingTitle, meetingDate, meetingTime, room, getAttendees());
 
-
-                if (!meetingTitle.isEmpty() && !meetingDate.isEmpty() && !meetingTime.isEmpty() && room != null) {
+                if (!meetingTitle.isEmpty() && !meetingDate.isEmpty() && !meetingTime.isEmpty()) {
+                    meeting = new Meeting(meetingTitle, meetingDate, meetingTime, room, attendees);
                     Log.d("ADD MEETING", "INFOS MISSING");
                     meetingsApi.addMeeting(meeting);
-
-                } else
-                    //toast réu crée
-                    Log.d("MEETING : ", meeting.toString());
-                //toast infos manquantes
-                finish();
+                    finish();
+                } else {
+                    alertEmptyFields();
+                    String text = getString(R.string.invalid_meeting);
+                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
 
         });
@@ -159,7 +165,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
 
         if (!validEmail(mBinding.newMeetingNewAttendee.getText())) {
             //toast invalid email
-            CharSequence text = getString(R.string.invalid_email);
+            String text = getString(R.string.invalid_email);
             Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
             toast.show();
         } else {
@@ -170,10 +176,13 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
             chip.setOnCloseIconClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     chipGroup.removeView(chip);
+                    mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees,chipGroup.getChildCount()));
+
                 }
             });
             chip.setTextColor(getResources().getColor(R.color.black));
             chipGroup.addView(chip);
+            mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees,chipGroup.getChildCount()));
         }
     }
 
@@ -183,12 +192,36 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
 
     public String getAttendees() {
         ArrayList<String> emails = new ArrayList<>();
+        chipGroup = mBinding.chipGroup;
 
         for (int i = 0; i < chipGroup.getChildCount(); i++) {
             String email = ((Chip) chipGroup.getChildAt(i)).getText().toString();
             emails.add(email);
         }
         return emails.toString().replace("]", "").replace("[", "");
+    }
+
+    public void alertEmptyFields() {
+
+        if(mBinding.newMeetingTitleField.getText().toString().isEmpty())
+            mBinding.newMeetingTitleField.setBackgroundColor(getResources().getColor(R.color.light_red));
+        else
+            mBinding.newMeetingTitleField.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
+        if(mBinding.newMeetingDateField.getText().toString().isEmpty())
+            mBinding.newMeetingDateField.setBackgroundColor(getResources().getColor(R.color.light_red));
+        else
+            mBinding.newMeetingDateField.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
+        if(mBinding.newMeetingTimeField.getText().toString().isEmpty())
+            mBinding.newMeetingTimeField.setBackgroundColor(getResources().getColor(R.color.light_red));
+        else
+            mBinding.newMeetingTimeField.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        if(getAttendees().isEmpty())
+                mBinding.newMeetingNewAttendee.setBackgroundColor(getResources().getColor(R.color.light_red));
+        else
+            mBinding.newMeetingNewAttendee.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
     }
 
     @Override

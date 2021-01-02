@@ -32,10 +32,9 @@
         android:id="@+id/new_meeting_title_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:hint="@string/new_meeting_title_hint"
-        android:inputType="text"
-        android:textColorHint="@color/medium_grey"
         android:textSize="14sp" />
 
     <TextView
@@ -52,7 +51,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:backgroundTint="@color/blue"
         android:hint="@string/new_meeting_date_field"
         android:textSize="12sp" />
 
@@ -86,10 +84,11 @@
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/new_meeting_room_spinner"
-        style="@style/Widget.AppCompat.Spinner"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:spinnerMode="dropdown"
         android:entries="@array/spinner_rooms"
         android:gravity="center_horizontal" />
 
@@ -97,17 +96,17 @@
         android:id="@+id/new_meeting_attendees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/new_meeting_attendees"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
-        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/new_meeting_new_attendee"
@@ -121,10 +120,10 @@
         android:textSize="12sp" />
 
     <ImageButton
-        android:layout_marginTop="10dp"
         android:id="@+id/new_meeting_add_attendee"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/ic_fab_add" />
 
     <Button

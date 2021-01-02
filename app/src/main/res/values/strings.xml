@@ -17,8 +17,9 @@
     <string name="registered_date">%1$s/%2$s/%3$d</string>
     <string name="registered_time">%1$s:%2$s</string>
     <string name="new_meeting_attendee">maxime@lamzone.com</string>
-    <string name="new_meeting_attendees">Participants</string>
+    <string name="new_meeting_attendees">Participants (%1$d)</string>
     <string name="invalid_email">Le format de l\'adresse n\'est pas valide.</string>
+    <string name="invalid_meeting">Veuillez compléter les champs manquant pour créer votre réunion.</string>
 
     <string-array name="spinner_rooms">
         <item>PEACH</item>
