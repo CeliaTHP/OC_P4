@@ -23,6 +23,7 @@
         android:layout_margin="10sp"
         android:text="@string/no_meeting"
         android:textColor="@color/black"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/meetings_arrow"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -30,9 +31,10 @@
         android:id="@+id/meetings_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/ic_down_arrow"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/list_fab"
         app:layout_constraintStart_toStartOf="@id/list_fab" />
 

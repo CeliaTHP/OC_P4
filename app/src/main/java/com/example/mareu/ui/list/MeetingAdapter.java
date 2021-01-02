@@ -1,9 +1,19 @@
 package com.example.mareu.ui.list;
 
 
+import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.mareu.callback.OnDeleteListener;
+import com.example.mareu.databinding.*;
 
 
 import androidx.annotation.NonNull;
@@ -11,7 +21,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareu.R;
-import com.example.mareu.databinding.ActivityNewMeetingLinearBinding;
 import com.example.mareu.databinding.ItemLayoutBinding;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
@@ -22,13 +31,11 @@ import java.util.List;
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewHolder> {
 
     private final List<Meeting> mMeetings;
-    private final MeetingsApi meetingsApi;
-    private ActivityNewMeetingLinearBinding mBinding;
+    private final OnDeleteListener onDeleteListener;
 
-
-    public MeetingAdapter(MeetingsApi meetingsApi, List<Meeting> meetings) {
-        this.meetingsApi = meetingsApi;
+    public MeetingAdapter(List<Meeting> meetings, OnDeleteListener onDeleteListener) {
         this.mMeetings = meetings;
+        this.onDeleteListener = onDeleteListener;
     }
 
 
@@ -54,13 +61,13 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
         holder.itemLayoutBinding.meetingAttendees.setText(attendees);
         holder.itemLayoutBinding.meetingImage.setImageResource(pic);
 
-
         holder.itemLayoutBinding.meetingsDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                meetingsApi.deleteMeeting(meeting);
+                onDeleteListener.onDelete(position);
+                /*meetingsApi.deleteMeeting(meeting);
                 notifyItemRemoved(position);
-                notifyItemRangeChanged(position, mMeetings.size());
+                notifyItemRangeChanged(position, mMeetings.size());*/
             }
         });
     }

@@ -141,11 +141,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
                 String attendees = getAttendees();
 
 
-                //TODO add attendees
-                //TODO display attendees in Chip
-                //TODO verify mail format before adding it
-
-                if (!meetingTitle.isEmpty() && !meetingDate.isEmpty() && !meetingTime.isEmpty()) {
+                if (!meetingTitle.isEmpty() && !meetingDate.isEmpty() && !meetingTime.isEmpty() && !getAttendees().isEmpty()) {
                     meeting = new Meeting(meetingTitle, meetingDate, meetingTime, room, attendees);
                     Log.d("ADD MEETING", "INFOS MISSING");
                     meetingsApi.addMeeting(meeting);

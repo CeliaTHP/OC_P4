@@ -5,8 +5,8 @@ import android.view.View;
 
 import com.example.mareu.databinding.ActivityNewMeetingLinearBinding;
 
-public interface OnItemClickListener {
+public interface OnDeleteListener {
 
-    void onItemClick(int position);
+    void onDelete(int position);
 
 }
