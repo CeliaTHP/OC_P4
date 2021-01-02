@@ -11,13 +11,14 @@ public class Meeting {
     private String time;
     private Room room;
     private Drawable pic;
-    private List<String> attendees;
+    private String attendees;
 
-    public Meeting(String title, String date, String time, Room room) {
+    public Meeting(String title, String date, String time, Room room, String attendees) {
         this.title = title;
         this.date = date;
         this.time = time;
         this.room = room;
+        this.attendees = attendees;
     }
 
     public String getTitle() {
@@ -60,11 +61,11 @@ public class Meeting {
         this.pic = pic;
     }
 
-    public List<String> getAttendees() {
+    public String getAttendees() {
         return attendees;
     }
 
-    public void setAttendees(List<String> attendees) {
+    public void setAttendees(String attendees) {
         this.attendees = attendees;
     }
 }

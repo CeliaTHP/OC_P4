@@ -25,7 +25,7 @@ public class DummyMeetingsApi implements MeetingsApi {
     }
 
     @Override
-    public List<String> getMeetingAttendees(Meeting meeting) {
+    public String getMeetingAttendees(Meeting meeting) {
         return meeting.getAttendees();
     }
 

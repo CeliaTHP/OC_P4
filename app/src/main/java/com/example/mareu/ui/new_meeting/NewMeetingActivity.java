@@ -4,14 +4,21 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.Spanned;
+import android.text.TextWatcher;
+import android.text.style.ImageSpan;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +31,15 @@ import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 import com.example.mareu.service.MeetingService.MeetingsApi;
 import com.example.mareu.service.RoomService.DummyRoomsGenerator;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.google.android.material.chip.ChipGroup;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class NewMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -33,6 +47,8 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
     private Meeting meeting;
     private MeetingsApi meetingsApi;
     private Room room;
+    private ChipGroup chipGroup;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +119,14 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
     }
 
     private void initAddButton() {
+        mBinding.newMeetingAddAttendee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chipGroup = mBinding.chipGroup;
+                initChip();
+            }
+        });
+
         mBinding.newMeetingSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,22 +134,61 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
                 String meetingTitle = mBinding.newMeetingTitleField.getText().toString();
                 String meetingDate = mBinding.newMeetingDateField.getText().toString();
                 String meetingTime = mBinding.newMeetingTimeField.getText().toString();
+
                 //TODO add attendees
                 //TODO display attendees in Chip
                 //TODO verify mail format before adding it
-                meeting = new Meeting(meetingTitle, meetingDate, meetingTime, room);
+                meeting = new Meeting(meetingTitle, meetingDate, meetingTime, room, getAttendees());
+
 
                 if (!meetingTitle.isEmpty() && !meetingDate.isEmpty() && !meetingTime.isEmpty() && room != null) {
+                    Log.d("ADD MEETING", "INFOS MISSING");
                     meetingsApi.addMeeting(meeting);
 
                 } else
-                    Log.d("ADD MEETING", "INFOS MISSING");
-                //toast réu crée
-                Log.d("MEETING : ", meeting.toString());
+                    //toast réu crée
+                    Log.d("MEETING : ", meeting.toString());
                 //toast infos manquantes
                 finish();
             }
+
         });
+    }
+
+    public void initChip() {
+
+        if (!validEmail(mBinding.newMeetingNewAttendee.getText())) {
+            //toast invalid email
+            CharSequence text = getString(R.string.invalid_email);
+            Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            Chip chip = new Chip(this);
+            chip.setText(mBinding.newMeetingNewAttendee.getText());
+            mBinding.newMeetingNewAttendee.setText("");
+            chip.setCloseIconVisible(true);
+            chip.setOnCloseIconClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    chipGroup.removeView(chip);
+                }
+            });
+            chip.setTextColor(getResources().getColor(R.color.black));
+            chipGroup.addView(chip);
+        }
+    }
+
+    public Boolean validEmail(CharSequence email) {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    public String getAttendees() {
+        ArrayList<String> emails = new ArrayList<>();
+
+        for (int i = 0; i < chipGroup.getChildCount(); i++) {
+            String email = ((Chip) chipGroup.getChildAt(i)).getText().toString();
+            emails.add(email);
+        }
+        return emails.toString().replace("]", "").replace("[", "");
     }
 
     @Override
@@ -134,14 +197,21 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String fullDate = getString(R.string.registered_date, dayOfMonth, month + 1, year);
+        String fullDate = getString(R.string.registered_date, checkDisplay(dayOfMonth), checkDisplay(month + 1), year);
         mBinding.newMeetingDateField.setText(fullDate);
         Log.d("DATE", fullDate);
     }
 
+    public String checkDisplay(int info) {
+        String infoString = String.valueOf(info);
+        if (info < 10)
+            infoString = "0" + info;
+        return infoString;
+    }
+
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        String fullTime = getString(R.string.registered_time, hourOfDay, minute);
+        String fullTime = getString(R.string.registered_time, checkDisplay(hourOfDay), checkDisplay(minute));
         mBinding.newMeetingTimeField.setText(fullTime);
         Log.d("TIME", fullTime);
     }

@@ -44,7 +44,6 @@ public class MeetingListActivity extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
-        //update whatever your list
         adapter.notifyDataSetChanged();
 
     }
@@ -59,7 +58,7 @@ public class MeetingListActivity extends AppCompatActivity {
         adapter = new MeetingAdapter(meetingsApi, meetings);
         mBinding.meetingRecyclerView.setAdapter(adapter);
 
-        //move onClickDelete here
+        //TODO onClickDelete here
     }
 
     private void initFabButton() {

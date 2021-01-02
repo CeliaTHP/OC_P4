@@ -9,7 +9,7 @@ public interface MeetingsApi {
 
     List<Meeting> getMeetings();
 
-    List<String> getMeetingAttendees(Meeting meeting);
+    String getMeetingAttendees(Meeting meeting);
 
     void addMeeting(Meeting meeting);
 

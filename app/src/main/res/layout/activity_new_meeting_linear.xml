@@ -34,8 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:hint="@string/new_meeting_title_hint"
-        android:textColorHint="@color/medium_grey"
         android:inputType="text"
+        android:textColorHint="@color/medium_grey"
         android:textSize="14sp" />
 
     <TextView
@@ -86,11 +86,46 @@
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/new_meeting_room_spinner"
+        style="@style/Widget.AppCompat.Spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:entries="@array/spinner_rooms"
         android:gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/new_meeting_attendees"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/new_meeting_attendees"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/new_meeting_new_attendee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:hint="@string/new_meeting_attendee"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="12sp" />
+
+    <ImageButton
+        android:layout_marginTop="10dp"
+        android:id="@+id/new_meeting_add_attendee"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_fab_add" />
 
     <Button
         android:id="@+id/new_meeting_send"
