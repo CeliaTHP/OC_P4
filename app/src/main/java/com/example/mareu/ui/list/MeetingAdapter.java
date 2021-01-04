@@ -1,30 +1,21 @@
 package com.example.mareu.ui.list;
 
 
-import android.app.Activity;
-import android.app.ListActivity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.Layout;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mareu.callback.OnDeleteListener;
-import com.example.mareu.databinding.*;
 
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareu.R;
 import com.example.mareu.databinding.ItemLayoutBinding;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
-import com.example.mareu.service.MeetingService.MeetingsApi;
 
 import java.util.List;
 
@@ -65,9 +56,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
             @Override
             public void onClick(View v) {
                 onDeleteListener.onDelete(position);
-                /*meetingsApi.deleteMeeting(meeting);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, mMeetings.size());*/
             }
         });
     }

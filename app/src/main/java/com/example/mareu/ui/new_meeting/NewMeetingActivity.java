@@ -2,22 +2,19 @@ package com.example.mareu.ui.new_meeting;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.os.Build;
 import android.os.Bundle;
+
 import android.text.Editable;
-import android.text.Spanned;
 import android.text.TextWatcher;
-import android.text.style.ImageSpan;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -26,25 +23,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.mareu.R;
-import com.example.mareu.databinding.ActivityNewMeetingLinearBinding;
+import com.example.mareu.databinding.ActivityNewMeetingBinding;
 import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 import com.example.mareu.service.MeetingService.MeetingsApi;
 import com.example.mareu.service.RoomService.DummyRoomsGenerator;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class NewMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    private ActivityNewMeetingLinearBinding mBinding;
+    private ActivityNewMeetingBinding mBinding;
     private Meeting meeting;
     private MeetingsApi meetingsApi;
     private Room room;
@@ -59,7 +53,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         initView();
         setToolbar();
         initSpinner();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) initDatePicker();
+        initDatePicker();
         initTimePicker();
         initAddButton();
 
@@ -67,7 +61,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
 
     //CHANGER VIEW
     private void initView() {
-        mBinding = ActivityNewMeetingLinearBinding.inflate(LayoutInflater.from(this));
+        mBinding = ActivityNewMeetingBinding    .inflate(LayoutInflater.from(this));
         setContentView(mBinding.getRoot());
     }
 
@@ -121,7 +115,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
 
     private void initAddButton() {
 
-        mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees,getAttendees().length()));
+        mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees, getAttendees().length()));
 
         mBinding.newMeetingAddAttendee.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,17 +166,17 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
             chip.setOnCloseIconClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     chipGroup.removeView(chip);
-                    mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees,chipGroup.getChildCount()));
+                    mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees, chipGroup.getChildCount()));
 
                 }
             });
             chip.setTextColor(getResources().getColor(R.color.black));
             chipGroup.addView(chip);
-            mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees,chipGroup.getChildCount()));
+            mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees, chipGroup.getChildCount()));
         }
     }
 
-    public Boolean validEmail(CharSequence email) {
+    private Boolean validEmail(CharSequence email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
@@ -199,26 +193,27 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
 
     public void alertEmptyFields() {
 
-        if(mBinding.newMeetingTitleField.getText().toString().isEmpty())
+        if (mBinding.newMeetingTitleField.getText().toString().isEmpty())
             mBinding.newMeetingTitleField.setBackgroundColor(getResources().getColor(R.color.light_red));
         else
             mBinding.newMeetingTitleField.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
-        if(mBinding.newMeetingDateField.getText().toString().isEmpty())
+        if (mBinding.newMeetingDateField.getText().toString().isEmpty())
             mBinding.newMeetingDateField.setBackgroundColor(getResources().getColor(R.color.light_red));
         else
             mBinding.newMeetingDateField.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
-        if(mBinding.newMeetingTimeField.getText().toString().isEmpty())
+        if (mBinding.newMeetingTimeField.getText().toString().isEmpty())
             mBinding.newMeetingTimeField.setBackgroundColor(getResources().getColor(R.color.light_red));
         else
             mBinding.newMeetingTimeField.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-        if(getAttendees().isEmpty())
-                mBinding.newMeetingNewAttendee.setBackgroundColor(getResources().getColor(R.color.light_red));
+        if (getAttendees().isEmpty())
+            mBinding.newMeetingNewAttendee.setBackgroundColor(getResources().getColor(R.color.light_red));
         else
             mBinding.newMeetingNewAttendee.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
     }
+
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

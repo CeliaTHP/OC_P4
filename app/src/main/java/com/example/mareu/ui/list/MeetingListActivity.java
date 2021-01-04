@@ -1,7 +1,5 @@
 package com.example.mareu.ui.list;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,13 +9,10 @@ import android.view.View;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.ListAdapter;
 
 import com.example.mareu.R;
 import com.example.mareu.callback.OnDeleteListener;
 import com.example.mareu.databinding.ActivityMeetingListBinding;
-import com.example.mareu.databinding.ActivityNewMeetingLinearBinding;
-import com.example.mareu.databinding.EmptyItemLayoutBinding;
 import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.service.MeetingService.MeetingsApi;
@@ -53,7 +48,6 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         super.onResume();
         adapter.notifyDataSetChanged();
         verifyEmptyList();
-
     }
 
     private void initView() {
@@ -63,10 +57,8 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
     private void initRecyclerView() {
         mBinding.meetingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Meeting> meetings = meetingsApi.getMeetings();
-        adapter = new MeetingAdapter(meetings, (this));
+        adapter = new MeetingAdapter(meetings, this);
         mBinding.meetingRecyclerView.setAdapter(adapter);
-
-        //TODO onClickDelete here
     }
 
 
