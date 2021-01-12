@@ -75,6 +75,7 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         switch (item.getItemId()) {
             case R.id.filter_reset:
                 updateRecyclerView(meetings);
+                verifyEmptyList();
                 break;
             case R.id.filter_date:
                 DialogFragment datePicker = new DatePickerFragment();
@@ -146,6 +147,18 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
 
         }
     }
+    public void verifyFilteredEmptyList() {
+        List<Meeting> filteredMeetings = meetingsApi.getMeetingsByRoom(roomChosen);
+        if (filteredMeetings.size() <= 0) {
+            Log.d("OnDelete from Activity", "EmptyList");
+            mBinding.meetingsArrow.setVisibility(View.VISIBLE);
+            mBinding.noMeeting.setVisibility(View.VISIBLE);
+        } else {
+            mBinding.meetingsArrow.setVisibility(View.INVISIBLE);
+            mBinding.noMeeting.setVisibility(View.INVISIBLE);
+
+        }
+    }
 
     private void initRoomDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
@@ -159,6 +172,7 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
                 roomChosen = DummyRoomsGenerator.generateRoom().get(which);
                 filteredMeetings = meetingsApi.getMeetingsByRoom(roomChosen);
                 adapter.updateData(filteredMeetings);
+                verifyFilteredEmptyList();
             }
 
         });

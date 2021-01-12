@@ -4,6 +4,8 @@ import com.example.mareu.service.MeetingService.DummyMeetingsApi;
 import com.example.mareu.service.RoomService.DummyRoomsApi;
 import com.example.mareu.service.MeetingService.MeetingsApi;
 import com.example.mareu.service.RoomService.RoomsApi;
+import com.example.mareu.service.UserService.DummyUsersApi;
+import com.example.mareu.service.UserService.UsersApi;
 
 
 /**
@@ -14,6 +16,8 @@ public class DI {
     private static MeetingsApi meetingsApi = new DummyMeetingsApi();
 
     private static RoomsApi roomsApi = new DummyRoomsApi();
+
+    private static UsersApi usersApi = new DummyUsersApi();
 
     /**
      * Get an instance on @{@link MeetingsApi}
@@ -32,5 +36,16 @@ public class DI {
     public static RoomsApi getRoomApi() {
         return roomsApi;
     }
+
+    /**
+     * Get an instance on @{@link UsersApi}
+     *
+     * @return
+     */
+    public static UsersApi getUsersApi() {
+        return usersApi;
+    }
+
+
 
 }

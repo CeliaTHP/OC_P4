@@ -1,6 +1,8 @@
 package com.example.mareu.ui.list;
 
 
+import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import com.example.mareu.callback.OnDeleteListener;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareu.R;
@@ -36,6 +39,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
         return new MeetingViewHolder.ViewHolder(binding);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull MeetingViewHolder.ViewHolder holder, int position) {
 
@@ -43,12 +47,18 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
         String name = meeting.getTitle();
         String time = meeting.getTime();
         Room room = meeting.getRoom();
-        String attendees = meeting.getAttendees();
+        List<String> attendees = meeting.getAttendees();
         int pic = room.getColor();
 
         String fullTitle = holder.itemView.getContext().getString(R.string.meeting_title, name, time, room.getName());
         holder.itemLayoutBinding.meetingTitle.setText(fullTitle);
-        holder.itemLayoutBinding.meetingAttendees.setText(attendees);
+
+        StringBuilder builder = new StringBuilder();
+        for (String value : attendees) {
+            builder.append(value);
+        }
+        String emails = String.join(", ",attendees);
+        holder.itemLayoutBinding.meetingAttendees.setText(emails);
         holder.itemLayoutBinding.meetingImage.setImageResource(pic);
 
         holder.itemLayoutBinding.meetingsDeleteButton.setOnClickListener(new View.OnClickListener() {

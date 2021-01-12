@@ -37,6 +37,7 @@ import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class NewMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -117,7 +118,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
 
     private void initAddButton() {
 
-        mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees, getAttendees().length()));
+        mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees, getAttendees().size()));
 
         mBinding.newMeetingAddAttendee.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +135,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
                 String meetingTitle = mBinding.newMeetingTitleField.getText().toString();
                 String meetingDate = mBinding.newMeetingDateField.getText().toString();
                 String meetingTime = mBinding.newMeetingTimeField.getText().toString();
-                String attendees = getAttendees();
+                List<String> attendees = getAttendees();
 
 
                 if (!meetingTitle.isEmpty() && !meetingDate.isEmpty() && !meetingTime.isEmpty() && !getAttendees().isEmpty()) {
@@ -183,7 +184,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    public String getAttendees() {
+    public List<String> getAttendees() {
         ArrayList<String> emails = new ArrayList<>();
         chipGroup = mBinding.chipGroup;
 
@@ -191,7 +192,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
             String email = ((Chip) chipGroup.getChildAt(i)).getText().toString();
             emails.add(email);
         }
-        return emails.toString().replace("]", "").replace("[", "");
+        return emails;
     }
 
     public void alertEmptyFields() {

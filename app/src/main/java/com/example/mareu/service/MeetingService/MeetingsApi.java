@@ -13,7 +13,7 @@ public interface MeetingsApi {
 
     List<Meeting> getMeetingsByRoom(Room room);
 
-    String getMeetingAttendees(Meeting meeting);
+    List<String> getMeetingAttendees(Meeting meeting);
 
     void addMeeting(Meeting meeting);
 

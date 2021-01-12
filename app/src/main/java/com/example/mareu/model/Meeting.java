@@ -15,9 +15,9 @@ public class Meeting {
     private Room room;
     private Drawable pic;
     //liste d'emails d'User
-    private String attendees;
+    private List<String> attendees;
 
-    public Meeting(String title, String date, String time, Room room, String attendees) {
+    public Meeting(String title, String date, String time, Room room, List<String>attendees) {
         this.title = title;
         this.date = date;
         this.time = time;
@@ -65,11 +65,11 @@ public class Meeting {
         this.pic = pic;
     }
 
-    public String getAttendees() {
+    public List<String> getAttendees() {
         return attendees;
     }
 
-    public void setAttendees(String attendees) {
+    public void setAttendees(List<String> attendees) {
         this.attendees = attendees;
     }
 }
