@@ -29,6 +29,8 @@ import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 import com.example.mareu.service.MeetingService.MeetingsApi;
 import com.example.mareu.service.RoomService.DummyRoomsGenerator;
+import com.example.mareu.ui.list.MeetingAdapter;
+import com.example.mareu.ui.list.MeetingListActivity;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -61,7 +63,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
 
     //CHANGER VIEW
     private void initView() {
-        mBinding = ActivityNewMeetingBinding    .inflate(LayoutInflater.from(this));
+        mBinding = ActivityNewMeetingBinding.inflate(LayoutInflater.from(this));
         setContentView(mBinding.getRoot());
     }
 
@@ -149,6 +151,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
             }
 
         });
+
     }
 
     public void initChip() {
@@ -214,7 +217,6 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
 
     }
 
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
@@ -227,6 +229,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
     }
 
     public String checkDisplay(int info) {
+        //use SimpleDateFormat instead
         String infoString = String.valueOf(info);
         if (info < 10)
             infoString = "0" + info;

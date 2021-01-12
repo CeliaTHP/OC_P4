@@ -14,7 +14,6 @@ import java.util.List;
 
 public class DummyMeetingsGenerator {
 
-
     private final static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
             new Meeting("Reunion A", "12/04/2020", "14h00", DummyRoomsGenerator.generateRoom().get(1),"maxime@lamzone.fr, alex@lamzone.fr, judy@lamzone.fr, panam@lamzone.fr, judy@lamzone.fr"),
             new Meeting("Reunion B", "14/02/2020", "17h00", DummyRoomsGenerator.generateRoom().get(4), "maxime@lamzone.fr, alex@lamzone.fr, judy@lamzone.fr, panam@lamzone.fr, judy@lamzone.fr"),

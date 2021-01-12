@@ -7,10 +7,14 @@ import java.util.List;
 
 public class Meeting {
     private String title;
+    //Date
     private String date;
+    //Date or double
     private String time;
+    //add endTime
     private Room room;
     private Drawable pic;
+    //liste d'emails d'User
     private String attendees;
 
     public Meeting(String title, String date, String time, Room room, String attendees) {

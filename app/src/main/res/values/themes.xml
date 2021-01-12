@@ -11,10 +11,19 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/darker_blue</item>
+        <item name="actionOverflowButtonStyle">@style/MenuButton</item>
+        
+    </style>
+
+    <!-- Menu icon. -->
+    <style name="MenuButton" parent = "Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_filter</item>
+
     </style>
 
     <style name="chip_text_apperance" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textColor">@android:color/white</item>
     </style>
+
 
 </resources>

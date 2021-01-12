@@ -1,7 +1,12 @@
 package com.example.mareu.service.MeetingService;
 
-import com.example.mareu.model.Meeting;
+import android.util.Log;
 
+import com.example.mareu.model.Meeting;
+import com.example.mareu.model.Room;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DummyMeetingsApi implements MeetingsApi {
@@ -15,6 +20,16 @@ public class DummyMeetingsApi implements MeetingsApi {
     }
 
     @Override
+    public List<Meeting> getMeetingsByRoom(Room room) {
+        List<Meeting> filteredList = new ArrayList<>();
+        for (int i = 0; i < meetingList.size(); i++) {
+            if (meetingList.get(i).getRoom() == room && !filteredList.contains(meetingList.get(i)))
+                filteredList.add(meetingList.get(i));
+        }
+        return filteredList;
+    }
+
+    @Override
     public void addMeeting(Meeting meeting) {
         meetingList.add(meeting);
     }
@@ -25,11 +40,15 @@ public class DummyMeetingsApi implements MeetingsApi {
     }
 
     @Override
+    public int getMeetingPosition(Meeting meeting) {
+        return meetingList.indexOf(meeting);
+
+    }
+
+    @Override
     public String getMeetingAttendees(Meeting meeting) {
         return meeting.getAttendees();
     }
-
-
 
 
 }

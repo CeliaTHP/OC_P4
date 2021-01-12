@@ -1,7 +1,6 @@
 package com.example.mareu.ui.list;
 
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import java.util.List;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewHolder> {
 
-    private final List<Meeting> mMeetings;
+    private List<Meeting> mMeetings;
     private final OnDeleteListener onDeleteListener;
 
     public MeetingAdapter(List<Meeting> meetings, OnDeleteListener onDeleteListener) {
@@ -63,6 +62,11 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
     @Override
     public int getItemCount() {
         return mMeetings.size();
+    }
+
+    public void updateData(List<Meeting> meetings) {
+        mMeetings = meetings;
+        notifyDataSetChanged();
     }
 
 }

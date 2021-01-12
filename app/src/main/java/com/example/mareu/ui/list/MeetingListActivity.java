@@ -1,13 +1,26 @@
 package com.example.mareu.ui.list;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.mareu.R;
@@ -15,17 +28,25 @@ import com.example.mareu.callback.OnDeleteListener;
 import com.example.mareu.databinding.ActivityMeetingListBinding;
 import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
+import com.example.mareu.model.Room;
 import com.example.mareu.service.MeetingService.MeetingsApi;
+import com.example.mareu.service.RoomService.DummyRoomsGenerator;
+import com.example.mareu.service.RoomService.RoomsApi;
+import com.example.mareu.ui.new_meeting.DatePickerFragment;
 import com.example.mareu.ui.new_meeting.NewMeetingActivity;
 
+import java.lang.reflect.Array;
+import java.util.Calendar;
 import java.util.List;
 
-public class MeetingListActivity extends AppCompatActivity implements OnDeleteListener {
+public class MeetingListActivity extends AppCompatActivity implements OnDeleteListener, DatePickerDialog.OnDateSetListener {
 
     private ActivityMeetingListBinding mBinding;
-    MeetingAdapter adapter;
+    List<Meeting> filteredMeetings;
+    private MeetingAdapter adapter;
     private MeetingsApi meetingsApi;
-
+    private RoomsApi roomsApi;
+    private Room roomChosen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,20 +54,45 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
 
         mBinding = ActivityMeetingListBinding.inflate(LayoutInflater.from(this));
         meetingsApi = DI.getMeetingApi();
+        roomsApi = DI.getRoomApi();
 
         initView();
         initRecyclerView();
         initFabButton();
         setToolbar();
 
+    }
 
-        //TODO add movable fab
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_custom, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        List<Meeting> meetings = meetingsApi.getMeetings();
+        switch (item.getItemId()) {
+            case R.id.filter_reset:
+                updateRecyclerView(meetings);
+                break;
+            case R.id.filter_date:
+                DialogFragment datePicker = new DatePickerFragment();
+                datePicker.show(getSupportFragmentManager(), "filter_by_date");
+                break;
+            case R.id.filter_room:
+                //roomChosen = getSpinnerResult
+                initRoomDialog();
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
+        adapter.updateData(meetingsApi.getMeetings());
         verifyEmptyList();
     }
 
@@ -99,5 +145,32 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
             mBinding.noMeeting.setVisibility(View.INVISIBLE);
 
         }
+    }
+
+    private void initRoomDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Example");
+        String[] rooms = getResources().getStringArray(R.array.spinner_rooms);
+        dialog.setItems(rooms, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                roomChosen = DummyRoomsGenerator.generateRoom().get(which);
+                filteredMeetings = meetingsApi.getMeetingsByRoom(roomChosen);
+                adapter.updateData(filteredMeetings);
+            }
+
+        });
+        dialog.show();
+    }
+
+    public void updateRecyclerView(List<Meeting> meetings) {
+        adapter.updateData(meetings);
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
     }
 }

@@ -20,6 +20,10 @@
     <string name="new_meeting_attendees">Participants (%1$d)</string>
     <string name="invalid_email">Le format de l\'adresse n\'est pas valide.</string>
     <string name="invalid_meeting">Veuillez compléter les champs manquant pour créer votre réunion.</string>
+    <string name ="filter_date">Filtrer par date</string>
+    <string name ="filter_room">Filtrer par salle</string>
+    <string name ="filter_reset">Filtrer par défaut</string>
+    <string name="filter_room_title">Salle :</string>
 
     <string-array name="spinner_rooms">
         <item>PEACH</item>
