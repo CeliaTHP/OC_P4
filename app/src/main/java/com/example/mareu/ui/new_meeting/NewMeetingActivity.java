@@ -29,6 +29,7 @@ import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 import com.example.mareu.service.MeetingService.MeetingsApi;
 import com.example.mareu.service.RoomService.DummyRoomsGenerator;
+import com.example.mareu.service.RoomService.RoomsApi;
 import com.example.mareu.ui.list.MeetingAdapter;
 import com.example.mareu.ui.list.MeetingListActivity;
 import com.example.mareu.utils.DisplayFormatter;
@@ -49,6 +50,8 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
     private ActivityNewMeetingBinding mBinding;
     private Meeting meeting;
     private MeetingsApi meetingsApi;
+    private RoomsApi roomsApi;
+
     private Room room;
     private ChipGroup chipGroup;
 
@@ -58,6 +61,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         super.onCreate(savedInstanceState);
 
         meetingsApi = DI.getMeetingApi();
+        roomsApi = DI.getRoomApi();
         initView();
         setToolbar();
         initSpinner();
@@ -111,7 +115,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                room = DummyRoomsGenerator.generateRoom().get(position);
+                room = roomsApi.getRooms().get(position);
                 Log.d("ROOM", room.getName());
             }
 

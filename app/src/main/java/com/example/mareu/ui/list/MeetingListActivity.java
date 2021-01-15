@@ -121,7 +121,8 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
 
     private void setToolbar() {
         ActionBar toolbar = getSupportActionBar();
-        toolbar.setTitle(R.string.list_toolbar_title);
+        if (toolbar != null)
+            toolbar.setTitle(R.string.list_toolbar_title);
     }
 
     @Override
@@ -155,7 +156,7 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                roomChosen = DummyRoomsGenerator.generateRoom().get(which);
+                roomChosen = roomsApi.getRooms().get(which);
                 filteredMeetings = meetingsApi.getMeetingsByRoom(roomChosen);
                 adapter.updateData(filteredMeetings);
                 verifyEmptyList();
@@ -180,7 +181,6 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         verifyEmptyList();
 
     }
-
 
 
 }

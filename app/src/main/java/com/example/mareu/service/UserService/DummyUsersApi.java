@@ -14,4 +14,9 @@ public class DummyUsersApi implements UsersApi {
     public List<User> getUsers() {
         return users;
     }
+
+    @Override
+    public List<String> getUserEmails() {
+        return DummyUsersGenerator.generateUserEmails();
+    }
 }

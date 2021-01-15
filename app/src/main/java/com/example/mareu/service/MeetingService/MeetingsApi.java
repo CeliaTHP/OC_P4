@@ -11,13 +11,9 @@ public interface MeetingsApi {
 
     List<Meeting> getMeetings();
 
-    int getMeetingPosition(Meeting meeting);
-
     List<Meeting> getMeetingsByRoom(Room room);
 
     List<Meeting> getMeetingsByDate(String date);
-
-    List<String> getMeetingAttendees(Meeting meeting);
 
     void addMeeting(Meeting meeting);
 

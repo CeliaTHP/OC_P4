@@ -71,6 +71,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
         holder.itemLayoutBinding.meetingsDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 onDeleteListener.onDelete(position);
             }
         });

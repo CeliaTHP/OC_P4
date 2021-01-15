@@ -12,8 +12,7 @@ import java.util.List;
 
 public class DummyMeetingsApi implements MeetingsApi {
 
-    private List<Meeting> meetingList = DummyMeetingsGenerator.generateMeetings();
-
+    private final List<Meeting> meetingList = DummyMeetingsGenerator.generateMeetings();
 
     @Override
     public List<Meeting> getMeetings() {
@@ -49,17 +48,6 @@ public class DummyMeetingsApi implements MeetingsApi {
     @Override
     public void deleteMeeting(Meeting meeting) {
         meetingList.remove(meeting);
-    }
-
-    @Override
-    public int getMeetingPosition(Meeting meeting) {
-        return meetingList.indexOf(meeting);
-
-    }
-
-    @Override
-    public List<String> getMeetingAttendees(Meeting meeting) {
-        return meeting.getAttendees();
     }
 
 

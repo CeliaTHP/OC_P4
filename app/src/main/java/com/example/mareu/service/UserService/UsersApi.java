@@ -9,4 +9,6 @@ public interface UsersApi {
 
     List<User> getUsers();
 
+    List<String> getUserEmails();
+
 }
