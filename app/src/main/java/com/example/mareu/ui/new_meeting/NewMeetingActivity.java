@@ -31,13 +31,18 @@ import com.example.mareu.service.MeetingService.MeetingsApi;
 import com.example.mareu.service.RoomService.DummyRoomsGenerator;
 import com.example.mareu.ui.list.MeetingAdapter;
 import com.example.mareu.ui.list.MeetingListActivity;
+import com.example.mareu.utils.DisplayFormatter;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class NewMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -134,6 +139,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
                 //String title, String date, String time, String room
                 String meetingTitle = mBinding.newMeetingTitleField.getText().toString();
                 String meetingDate = mBinding.newMeetingDateField.getText().toString();
+
                 String meetingTime = mBinding.newMeetingTimeField.getText().toString();
                 List<String> attendees = getAttendees();
 
@@ -224,22 +230,14 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String fullDate = getString(R.string.registered_date, checkDisplay(dayOfMonth), checkDisplay(month + 1), year);
+        String fullDate = getString(R.string.registered_date, DisplayFormatter.checkDisplay(dayOfMonth), DisplayFormatter.checkDisplay(month + 1), year);
         mBinding.newMeetingDateField.setText(fullDate);
         Log.d("DATE", fullDate);
     }
 
-    public String checkDisplay(int info) {
-        //use SimpleDateFormat instead
-        String infoString = String.valueOf(info);
-        if (info < 10)
-            infoString = "0" + info;
-        return infoString;
-    }
-
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        String fullTime = getString(R.string.registered_time, checkDisplay(hourOfDay), checkDisplay(minute));
+        String fullTime = getString(R.string.registered_time, DisplayFormatter.checkDisplay(hourOfDay), DisplayFormatter.checkDisplay(minute));
         mBinding.newMeetingTimeField.setText(fullTime);
         Log.d("TIME", fullTime);
     }

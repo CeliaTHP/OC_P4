@@ -19,6 +19,8 @@ import com.example.mareu.databinding.ItemLayoutBinding;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewHolder> {
@@ -46,6 +48,11 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
         Meeting meeting = mMeetings.get(position);
         String name = meeting.getTitle();
         String time = meeting.getTime();
+
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String date = simpleDateFormat.format(new Date());
+
         Room room = meeting.getRoom();
         List<String> attendees = meeting.getAttendees();
         int pic = room.getColor();
@@ -57,7 +64,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
         for (String value : attendees) {
             builder.append(value);
         }
-        String emails = String.join(", ",attendees);
+        String emails = String.join(", ", attendees);
         holder.itemLayoutBinding.meetingAttendees.setText(emails);
         holder.itemLayoutBinding.meetingImage.setImageResource(pic);
 

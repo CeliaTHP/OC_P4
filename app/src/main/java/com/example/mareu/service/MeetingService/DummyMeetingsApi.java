@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +29,17 @@ public class DummyMeetingsApi implements MeetingsApi {
         }
         return filteredList;
     }
+
+    @Override
+    public List<Meeting> getMeetingsByDate(String date) {
+        List<Meeting> filteredList = new ArrayList<>();
+        for (int i = 0; i < meetingList.size(); i++) {
+            if (meetingList.get(i).getDate().equals(date) && !filteredList.contains(meetingList.get(i)))
+                filteredList.add(meetingList.get(i));
+        }
+        return filteredList;
+    }
+
 
     @Override
     public void addMeeting(Meeting meeting) {

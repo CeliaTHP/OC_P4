@@ -44,7 +44,7 @@ public class User {
     }
 
     public String createEmail() {
-        email = (name + surname + "@lamzone.com");
+        email = getName() + getSurname() + "@lamzone.com";
         return email;
     }
 

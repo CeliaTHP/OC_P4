@@ -3,11 +3,14 @@ package com.example.mareu.model;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class Meeting {
+
     private String title;
-    //Date
+
     private String date;
     //Date or double
     private String time;
@@ -17,7 +20,7 @@ public class Meeting {
     //liste d'emails d'User
     private List<String> attendees;
 
-    public Meeting(String title, String date, String time, Room room, List<String>attendees) {
+    public Meeting(String title, String date, String time, Room room, List<String> attendees) {
         this.title = title;
         this.date = date;
         this.time = time;
