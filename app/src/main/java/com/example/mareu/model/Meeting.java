@@ -15,16 +15,19 @@ public class Meeting {
 
     private Date startTime;
 
+    private Date endTime;
+
     private Room room;
 
     private Drawable pic;
 
     private List<String> attendees;
 
-    public Meeting(String title, Date date, Date startTime, Room room, List<String> attendees) {
+    public Meeting(String title, Date date, Date startTime, Date endTime, Room room, List<String> attendees) {
         this.title = title;
         this.date = date;
         this.startTime = startTime;
+        this.endTime = endTime;
         this.room = room;
         this.attendees = attendees;
     }
@@ -51,6 +54,14 @@ public class Meeting {
 
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public Room getRoom() {

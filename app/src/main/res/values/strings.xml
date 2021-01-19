@@ -5,7 +5,8 @@
     <string name="new_meeting_pres">Créer une réunion</string>
     <string name="new_meeting_title">Nom de ma réunion</string>
     <string name="new_meeting_title_hint">Brainstorming</string>
-    <string name="new_meeting_time">Horaire</string>
+    <string name="new_meeting_start_time">Heure de début</string>
+    <string name="new_meeting_end_time">Heure de fin</string>
     <string name="new_meeting_time_field">00:00</string>
     <string name="new_meeting_room">Salle</string>
     <string name="new_meeting_room_field">Waluigi</string>

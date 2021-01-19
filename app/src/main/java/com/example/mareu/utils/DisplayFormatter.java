@@ -7,7 +7,7 @@ import java.util.Locale;
 
 public interface DisplayFormatter {
 
-    public static Date formatStringToDate(String dateString) {
+    static Date formatStringToDate(String dateString) {
         Date date = null;
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         try {
@@ -18,13 +18,13 @@ public interface DisplayFormatter {
         return date;
     }
 
-    public static String formatDateToString(Date date) {
+    static String formatDateToString(Date date) {
         String pattern = "dd/MM/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         return simpleDateFormat.format(date);
     }
 
-    public static Date formatStringToTime(String timeString) {
+    static Date formatStringToTime(String timeString) {
         Date time = null;
         SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
         try {
@@ -35,7 +35,7 @@ public interface DisplayFormatter {
         return time;
     }
 
-    public static String formatTimeToString(Date time) {
+    static String formatTimeToString(Date time) {
         String pattern = "HH:mm";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         return simpleDateFormat.format(time);

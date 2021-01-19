@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DummyUsersApi implements UsersApi {
 
-    private List<User> users = DummyUsersGenerator.generateUsers();
+    private final List<User> users = DummyUsersGenerator.generateUsers();
 
     @Override
     public List<User> getUsers() {

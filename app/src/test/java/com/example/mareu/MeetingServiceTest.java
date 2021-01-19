@@ -56,7 +56,7 @@ public class MeetingServiceTest {
      */
     @Test
     public void addMeetingWithSuccess() {
-        Meeting meeting = new Meeting("TestMeeting", DisplayFormatter.formatStringToDate("21/12/21"), DisplayFormatter.formatStringToTime("08h00"), roomsService.getRooms().get(3), userService.getUserEmails());
+        Meeting meeting = new Meeting("TestMeeting", DisplayFormatter.formatStringToDate("21/12/21"), DisplayFormatter.formatStringToTime("08:00"),DisplayFormatter.formatStringToTime("10:00"), roomsService.getRooms().get(3), userService.getUserEmails());
         assertFalse(meetingService.getMeetings().contains(meeting));
         meetingService.addMeeting(meeting);
         //assert that our Meeting has been added to the Meeting list

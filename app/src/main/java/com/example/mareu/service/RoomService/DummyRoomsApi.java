@@ -6,7 +6,7 @@ import java.util.List;
 
 public class DummyRoomsApi implements RoomsApi {
 
-    private List<Room> roomList = DummyRoomsGenerator.generateRoom();
+    private final List<Room> roomList = DummyRoomsGenerator.generateRoom();
 
     @Override
     public List<Room> getRooms() {

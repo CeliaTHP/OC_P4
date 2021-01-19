@@ -44,6 +44,9 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
     private RoomsApi roomsApi;
     private Date startDate;
     private Date startTime;
+    private Date endTime;
+    private Boolean viewClick;
+
 
     private Room room;
     private ChipGroup chipGroup;
@@ -87,13 +90,22 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
     }
 
     private void initTimePicker() {
-        mBinding.newMeetingTimeField.setFocusable(false);
-        mBinding.newMeetingTimeField.setOnClickListener(new View.OnClickListener() {
+        mBinding.newMeetingStartTimeField.setFocusable(false);
+        mBinding.newMeetingStartTimeField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                viewClick = true;
                 DialogFragment timePicker = new TimePickerFragment();
                 timePicker.show(getSupportFragmentManager(), "time picker");
-
+            }
+        });
+        mBinding.newMeetingEndTimeField.setFocusable(false);
+        mBinding.newMeetingEndTimeField.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewClick = false;
+                DialogFragment timePicker = new TimePickerFragment();
+                timePicker.show(getSupportFragmentManager(), "time picker");
             }
         });
     }
@@ -136,11 +148,11 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
                 String meetingTitle = mBinding.newMeetingTitleField.getText().toString();
 
                 String meetingDate = mBinding.newMeetingDateField.getText().toString();
-                String meetingTime = mBinding.newMeetingTimeField.getText().toString();
+
                 List<String> attendees = getAttendees();
 
-                if (!meetingTitle.isEmpty() && !meetingDate.isEmpty() && !meetingTime.isEmpty() && !getAttendees().isEmpty()) {
-                    meeting = new Meeting(meetingTitle, startDate, startTime, room, attendees);
+                if (!meetingTitle.isEmpty() && !meetingDate.isEmpty() && startTime != null && endTime != null && !getAttendees().isEmpty()) {
+                    meeting = new Meeting(meetingTitle, startDate, startTime, endTime, room, attendees);
                     Log.d("ADD MEETING", "MEETING " + meetingTitle + " CREATED");
                     meetingsApi.addMeeting(meeting);
                     finish();
@@ -208,10 +220,16 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         else
             mBinding.newMeetingDateField.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
-        if (mBinding.newMeetingTimeField.getText().toString().isEmpty())
-            mBinding.newMeetingTimeField.setBackgroundColor(getResources().getColor(R.color.light_red));
+        if (mBinding.newMeetingStartTimeField.getText().toString().isEmpty())
+            mBinding.newMeetingStartTimeField.setBackgroundColor(getResources().getColor(R.color.light_red));
         else
-            mBinding.newMeetingTimeField.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+            mBinding.newMeetingStartTimeField.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
+        if (mBinding.newMeetingEndTimeField.getText().toString().isEmpty())
+            mBinding.newMeetingEndTimeField.setBackgroundColor(getResources().getColor(R.color.light_red));
+        else
+            mBinding.newMeetingEndTimeField.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
         if (getAttendees().isEmpty())
             mBinding.newMeetingNewAttendee.setBackgroundColor(getResources().getColor(R.color.light_red));
         else
@@ -236,9 +254,16 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minute);
-        startTime = c.getTime();
-        String startTimeString = DisplayFormatter.formatTimeToString(startTime);
-        mBinding.newMeetingTimeField.setText(startTimeString);
-        Log.d("TIME", startTimeString);
+        if (viewClick) {
+            startTime = c.getTime();
+            String startTimeString = DisplayFormatter.formatTimeToString(startTime);
+            mBinding.newMeetingStartTimeField.setText(startTimeString);
+            Log.d("START TIME", startTimeString);
+        } else {
+            endTime = c.getTime();
+            String endTimeString = DisplayFormatter.formatTimeToString(endTime);
+            mBinding.newMeetingEndTimeField.setText(endTimeString);
+            Log.d("END TIME", endTimeString);
+        }
     }
 }

@@ -13,11 +13,11 @@ import com.example.mareu.service.UserService.UsersApi;
  */
 public class DI {
 
-    private static MeetingsApi meetingsApi = new DummyMeetingsApi();
+    private static final MeetingsApi meetingsApi = new DummyMeetingsApi();
 
-    private static RoomsApi roomsApi = new DummyRoomsApi();
+    private static final RoomsApi roomsApi = new DummyRoomsApi();
 
-    private static UsersApi usersApi = new DummyUsersApi();
+    private static final UsersApi usersApi = new DummyUsersApi();
 
     /**
      * Get an instance on @{@link MeetingsApi}
