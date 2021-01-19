@@ -7,14 +7,17 @@ import com.example.mareu.service.MeetingService.DummyMeetingsGenerator;
 import com.example.mareu.service.MeetingService.MeetingsApi;
 import com.example.mareu.service.RoomService.RoomsApi;
 import com.example.mareu.service.UserService.UsersApi;
+import com.example.mareu.utils.DisplayFormatter;
 
-import org.hamcrest.MatcherAssert;
+import org.hamcrest.*;
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -53,11 +56,12 @@ public class MeetingServiceTest {
      */
     @Test
     public void addMeetingWithSuccess() {
-        Meeting meeting = new Meeting("TestMeeting","21/12/21","08h00",roomsService.getRooms().get(3),userService.getUserEmails());
+        Meeting meeting = new Meeting("TestMeeting", DisplayFormatter.formatStringToDate("21/12/21"), DisplayFormatter.formatStringToTime("08h00"), roomsService.getRooms().get(3), userService.getUserEmails());
         assertFalse(meetingService.getMeetings().contains(meeting));
         meetingService.addMeeting(meeting);
         //assert that our Meeting has been added to the Meeting list
         assertTrue(meetingService.getMeetings().contains(meeting));
+
     }
 
     /**
@@ -71,17 +75,33 @@ public class MeetingServiceTest {
         //assert that our Meeting has been deleted from our list
         assertFalse(meetingService.getMeetings().contains(meetingToDelete));
     }
+
     /**
      * Get the Meeting list filtered by room
      */
     @Test
-    public void getMeetingsByRoomWithSuccess(){
-
+    public void getMeetingsByRoomWithSuccess() {
+        Room roomToCheck = roomsService.getRooms().get(6);
+        List<Meeting> filteredList = meetingService.getMeetingsByRoom(roomToCheck);
+        //with each
+        //use getRoom on map
+        assertSame(filteredList.get(0).getRoom(), roomToCheck);
     }
 
 
-
-
+    /**
+     * Get the Meeting list filtered by date
+     */
+    @Test
+    public void getMeetingsByDateWithSuccess() {
+         String dateToCheck= "14/02/2021";
+        List<Meeting> filteredList = meetingService.getMeetings();
+        assertNotSame(filteredList.get(0).getDate(), dateToCheck);
+        filteredList = meetingService.getMeetingsByDate(dateToCheck);
+        //with each
+        //TODO use getStartDate on map
+        assertSame(filteredList.get(0).getDate(), dateToCheck);
+    }
 
 
 }

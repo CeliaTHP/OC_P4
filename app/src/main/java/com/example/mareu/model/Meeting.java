@@ -11,19 +11,20 @@ public class Meeting {
 
     private String title;
 
-    private String date;
-    //Date or double
-    private String time;
-    //add endTime
+    private Date date;
+
+    private Date startTime;
+
     private Room room;
+
     private Drawable pic;
-    //liste d'emails d'User
+
     private List<String> attendees;
 
-    public Meeting(String title, String date, String time, Room room, List<String> attendees) {
+    public Meeting(String title, Date date, Date startTime, Room room, List<String> attendees) {
         this.title = title;
         this.date = date;
-        this.time = time;
+        this.startTime = startTime;
         this.room = room;
         this.attendees = attendees;
     }
@@ -36,20 +37,20 @@ public class Meeting {
         this.title = title;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public String getTime() {
-        return time;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
     public Room getRoom() {

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
+import com.example.mareu.utils.DisplayFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class DummyMeetingsApi implements MeetingsApi {
     public List<Meeting> getMeetingsByDate(String date) {
         List<Meeting> filteredList = new ArrayList<>();
         for (int i = 0; i < meetingList.size(); i++) {
-            if (meetingList.get(i).getDate().equals(date) && !filteredList.contains(meetingList.get(i)))
+            if (meetingList.get(i).getDate().equals(DisplayFormatter.formatStringToDate(date)) && !filteredList.contains(meetingList.get(i)))
                 filteredList.add(meetingList.get(i));
         }
         return filteredList;

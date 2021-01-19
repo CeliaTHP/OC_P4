@@ -18,10 +18,12 @@ import com.example.mareu.R;
 import com.example.mareu.databinding.ItemLayoutBinding;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
+import com.example.mareu.utils.DisplayFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewHolder> {
 
@@ -47,11 +49,8 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
 
         Meeting meeting = mMeetings.get(position);
         String name = meeting.getTitle();
-        String time = meeting.getTime();
+        String time = DisplayFormatter.formatTimeToString(meeting.getStartTime());
 
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        String date = simpleDateFormat.format(new Date());
 
         Room room = meeting.getRoom();
         List<String> attendees = meeting.getAttendees();
@@ -72,7 +71,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
             @Override
             public void onClick(View v) {
 
-                onDeleteListener.onDelete(position);
+                onDeleteListener.onDelete(position); //donner l'objet
             }
         });
     }

@@ -4,8 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -13,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -28,22 +25,16 @@ import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 import com.example.mareu.service.MeetingService.MeetingsApi;
-import com.example.mareu.service.RoomService.DummyRoomsGenerator;
 import com.example.mareu.service.RoomService.RoomsApi;
-import com.example.mareu.ui.list.MeetingAdapter;
-import com.example.mareu.ui.list.MeetingListActivity;
 import com.example.mareu.utils.DisplayFormatter;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class NewMeetingActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
@@ -51,10 +42,11 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
     private Meeting meeting;
     private MeetingsApi meetingsApi;
     private RoomsApi roomsApi;
+    private Date startDate;
+    private Date startTime;
 
     private Room room;
     private ChipGroup chipGroup;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +91,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         mBinding.newMeetingTimeField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment timePicker = new TImePickerFragment();
+                DialogFragment timePicker = new TimePickerFragment();
                 timePicker.show(getSupportFragmentManager(), "time picker");
 
             }
@@ -142,15 +134,14 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
             public void onClick(View v) {
                 //String title, String date, String time, String room
                 String meetingTitle = mBinding.newMeetingTitleField.getText().toString();
-                String meetingDate = mBinding.newMeetingDateField.getText().toString();
 
+                String meetingDate = mBinding.newMeetingDateField.getText().toString();
                 String meetingTime = mBinding.newMeetingTimeField.getText().toString();
                 List<String> attendees = getAttendees();
 
-
                 if (!meetingTitle.isEmpty() && !meetingDate.isEmpty() && !meetingTime.isEmpty() && !getAttendees().isEmpty()) {
-                    meeting = new Meeting(meetingTitle, meetingDate, meetingTime, room, attendees);
-                    Log.d("ADD MEETING", "INFOS MISSING");
+                    meeting = new Meeting(meetingTitle, startDate, startTime, room, attendees);
+                    Log.d("ADD MEETING", "MEETING " + meetingTitle + " CREATED");
                     meetingsApi.addMeeting(meeting);
                     finish();
                 } else {
@@ -234,15 +225,20 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String fullDate = getString(R.string.registered_date, DisplayFormatter.checkDisplay(dayOfMonth), DisplayFormatter.checkDisplay(month + 1), year);
-        mBinding.newMeetingDateField.setText(fullDate);
-        Log.d("DATE", fullDate);
+        startDate = c.getTime();
+        String startDateString = DisplayFormatter.formatDateToString(startDate);
+        mBinding.newMeetingDateField.setText(startDateString);
+        Log.d("DATE", startDateString);
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        String fullTime = getString(R.string.registered_time, DisplayFormatter.checkDisplay(hourOfDay), DisplayFormatter.checkDisplay(minute));
-        mBinding.newMeetingTimeField.setText(fullTime);
-        Log.d("TIME", fullTime);
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        c.set(Calendar.MINUTE, minute);
+        startTime = c.getTime();
+        String startTimeString = DisplayFormatter.formatTimeToString(startTime);
+        mBinding.newMeetingTimeField.setText(startTimeString);
+        Log.d("TIME", startTimeString);
     }
 }
