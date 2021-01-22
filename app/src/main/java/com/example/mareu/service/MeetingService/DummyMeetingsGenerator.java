@@ -12,9 +12,9 @@ import java.util.List;
 
 public class DummyMeetingsGenerator {
 
-    public static MeetingsApi meetingsApi = new DummyMeetingsApi();
+    private final static MeetingsApi meetingsApi = new DummyMeetingsApi();
 
-    public final static ArrayList<Meeting> DUMMY_MEETINGS = new ArrayList<Meeting>(11) {
+    private final static ArrayList<Meeting> DUMMY_MEETINGS = new ArrayList<Meeting>(11) {
         {
             add(new Meeting("Reunion A", DisplayFormatter.formatStringToDate("19/03/2021"), DisplayFormatter.formatStringToTime("14:00"), DisplayFormatter.formatStringToTime("15:00"), meetingsApi.getRooms().get(1), meetingsApi.getUserEmails()));
             add(new Meeting("Reunion B", DisplayFormatter.formatStringToDate("14/02/2021"), DisplayFormatter.formatStringToTime("17:00"), DisplayFormatter.formatStringToTime("19:00"), meetingsApi.getRooms().get(4), meetingsApi.getUserEmails()));

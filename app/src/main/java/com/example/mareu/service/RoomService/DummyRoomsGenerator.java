@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DummyRoomsGenerator {
 
-    private final static ArrayList<Room> DUMMY_ROOMS = new ArrayList<Room>(10) {
+    private final static ArrayList<Room> DUMMY_ROOMS = new ArrayList<Room>(11) {
         {
             add(new Room("PEACH", R.drawable.ic_pink_pic));
             add(new Room("MARIO", R.drawable.ic_red_pic));

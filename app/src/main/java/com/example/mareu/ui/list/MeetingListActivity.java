@@ -121,6 +121,7 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         List<Meeting> meetings = meetingsApi.getMeetings();
         meetingsApi.deleteMeeting(meetings.get(position));
         adapter.notifyItemRemoved(position);
+        adapter.notifyItemRangeChanged(position,meetings.size());
         //update list - item removed
         verifyEmptyList();
     }

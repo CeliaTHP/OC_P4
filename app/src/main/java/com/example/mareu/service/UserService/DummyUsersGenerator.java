@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class DummyUsersGenerator {
 
-    private final static List<User> DUMMY_USERS = new ArrayList<User>() {
+    private final static List<User> DUMMY_USERS = new ArrayList<User>(11) {
         {
             add(new User("Blue", "Fox"));
             add(new User("Red", "Rabbit"));
@@ -34,12 +34,10 @@ public class DummyUsersGenerator {
 
     public static List<String> generateUserEmails() {
         List<String> emails = new ArrayList<>();
-        int rand = (int) (Math.random() * 10);
-        emails.add(DUMMY_USERS.get(rand).getEmail());
-        rand = (int) (Math.random() * 10);
-        emails.add(DUMMY_USERS.get(rand).getEmail());
-        rand = (int) (Math.random() * 10);
-        emails.add(DUMMY_USERS.get(rand).getEmail());
+        Random random = new Random();
+        emails.add(DUMMY_USERS.get(random.nextInt(DUMMY_USERS.size())).getEmail());
+        emails.add(DUMMY_USERS.get(random.nextInt(DUMMY_USERS.size())).getEmail());
+        emails.add(DUMMY_USERS.get(random.nextInt(DUMMY_USERS.size())).getEmail());
         return emails;
     }
 }

@@ -3,8 +3,11 @@ package com.example.mareu;
 import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
+import com.example.mareu.model.User;
 import com.example.mareu.service.MeetingService.DummyMeetingsGenerator;
 import com.example.mareu.service.MeetingService.MeetingsApi;
+import com.example.mareu.service.RoomService.DummyRoomsGenerator;
+import com.example.mareu.service.UserService.DummyUsersGenerator;
 import com.example.mareu.utils.DisplayFormatter;
 
 import org.hamcrest.*;
@@ -39,7 +42,7 @@ public class MeetingServiceTest {
     @Test
     public void getMeetingsWithSuccess() {
         List<Meeting> meetings = meetingService.getMeetings();
-        List<Meeting> expectedMeetings = DummyMeetingsGenerator.DUMMY_MEETINGS;
+        List<Meeting> expectedMeetings = DummyMeetingsGenerator.generateMeetings();
         //assert that our list contains all meetings
         MatcherAssert.assertThat(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedMeetings.toArray()));
     }
@@ -49,7 +52,7 @@ public class MeetingServiceTest {
      */
     @Test
     public void addMeetingWithSuccess() {
-        Meeting meeting = new Meeting("TestMeeting", DisplayFormatter.formatStringToDate("21/12/21"), DisplayFormatter.formatStringToTime("08:00"),DisplayFormatter.formatStringToTime("10:00"), meetingService.getRooms().get(3), meetingService.getUserEmails());
+        Meeting meeting = new Meeting("TestMeeting", DisplayFormatter.formatStringToDate("21/12/21"), DisplayFormatter.formatStringToTime("08:00"), DisplayFormatter.formatStringToTime("10:00"), meetingService.getRooms().get(3), meetingService.getUserEmails());
         assertFalse(meetingService.getMeetings().contains(meeting));
         meetingService.addMeeting(meeting);
         //assert that our Meeting has been added to the Meeting list
@@ -81,19 +84,39 @@ public class MeetingServiceTest {
         assertSame(filteredList.get(0).getRoom(), roomToCheck);
     }
 
-
     /**
      * Get the Meeting list filtered by date
      */
     @Test
     public void getMeetingsByDateWithSuccess() {
-         String dateToCheck= "14/02/2021";
+        String dateToCheck = "14/02/2021";
         List<Meeting> filteredList = meetingService.getMeetings();
-        assertNotSame(filteredList.get(0).getDate(), dateToCheck);
+        assertNotEquals(filteredList.get(0).getDate(), dateToCheck);
         filteredList = meetingService.getMeetingsByDate(dateToCheck);
         //with each
-        //TODO use getStartDate on map
-        assertEquals(filteredList.get(0).getDate(), dateToCheck);
+        assertEquals(filteredList.get(0).getDate(), DisplayFormatter.formatStringToDate(dateToCheck));
+    }
+
+    /**
+     * Get the Room List
+     */
+    @Test
+    public void getRoomsWithSuccess() {
+        List<Room> rooms = meetingService.getRooms();
+        List<Room> expectedRooms = DummyRoomsGenerator.generateRoom();
+        //assert that our list contains all meetings
+        MatcherAssert.assertThat(rooms, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedRooms.toArray()));
+    }
+
+    /**
+     * Get the User List
+     */
+    @Test
+    public void getUsersWithSuccess() {
+        List<User> users = meetingService.getUsers();
+        List<User> expectedUsers = DummyUsersGenerator.generateUsers();
+        //assert that our list contains all meetings
+        MatcherAssert.assertThat(users, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedUsers.toArray()));
     }
 
 
