@@ -5,8 +5,6 @@ import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 import com.example.mareu.service.MeetingService.DummyMeetingsGenerator;
 import com.example.mareu.service.MeetingService.MeetingsApi;
-import com.example.mareu.service.RoomService.RoomsApi;
-import com.example.mareu.service.UserService.UsersApi;
 import com.example.mareu.utils.DisplayFormatter;
 
 import org.hamcrest.*;
@@ -17,7 +15,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -29,15 +26,11 @@ import static org.junit.Assert.*;
 public class MeetingServiceTest {
 
     private MeetingsApi meetingService;
-    private RoomsApi roomsService;
-    private UsersApi userService;
 
 
     @Before
     public void setup() {
         meetingService = DI.getMeetingApi();
-        roomsService = DI.getRoomApi();
-        userService = DI.getUsersApi();
     }
 
     /**
@@ -56,7 +49,7 @@ public class MeetingServiceTest {
      */
     @Test
     public void addMeetingWithSuccess() {
-        Meeting meeting = new Meeting("TestMeeting", DisplayFormatter.formatStringToDate("21/12/21"), DisplayFormatter.formatStringToTime("08:00"),DisplayFormatter.formatStringToTime("10:00"), roomsService.getRooms().get(3), userService.getUserEmails());
+        Meeting meeting = new Meeting("TestMeeting", DisplayFormatter.formatStringToDate("21/12/21"), DisplayFormatter.formatStringToTime("08:00"),DisplayFormatter.formatStringToTime("10:00"), meetingService.getRooms().get(3), meetingService.getUserEmails());
         assertFalse(meetingService.getMeetings().contains(meeting));
         meetingService.addMeeting(meeting);
         //assert that our Meeting has been added to the Meeting list
@@ -81,7 +74,7 @@ public class MeetingServiceTest {
      */
     @Test
     public void getMeetingsByRoomWithSuccess() {
-        Room roomToCheck = roomsService.getRooms().get(6);
+        Room roomToCheck = meetingService.getRooms().get(6);
         List<Meeting> filteredList = meetingService.getMeetingsByRoom(roomToCheck);
         //with each
         //use getRoom on map
@@ -100,7 +93,7 @@ public class MeetingServiceTest {
         filteredList = meetingService.getMeetingsByDate(dateToCheck);
         //with each
         //TODO use getStartDate on map
-        assertSame(filteredList.get(0).getDate(), dateToCheck);
+        assertEquals(filteredList.get(0).getDate(), dateToCheck);
     }
 
 

@@ -11,19 +11,22 @@ import java.util.Random;
 
 public class DummyUsersGenerator {
 
-    private final static List<User> DUMMY_USERS = Arrays.asList(
-            new User("Blue", "Fox"),
-            new User("Red", "Rabbit"),
-            new User("Green", "Panda"),
-            new User("Pink", "Platypus"),
-            new User("Purple", "Frog"),
-            new User("Yellow", "Spider"),
-            new User("Black", "Bird"),
-            new User("Orange", "Turtle"),
-            new User("White", "Snake"),
-            new User("Grey", "Squirrel"),
-            new User("Rainbow", "Koala")
-    );
+    private final static List<User> DUMMY_USERS = new ArrayList<User>() {
+        {
+            add(new User("Blue", "Fox"));
+            add(new User("Red", "Rabbit"));
+            add(new User("Green", "Panda"));
+            add(new User("Pink", "Platypus"));
+            add(new User("Purple", "Frog"));
+            add(new User("Yellow", "Spider"));
+            add(new User("Black", "Bird"));
+            add(new User("Orange", "Turtle"));
+            add(new User("White", "Snake"));
+            add(new User("Grey", "Squirrel"));
+            add(new User("Rainbow", "Koala"));
+
+        }
+    };
 
     public static List<User> generateUsers() {
         return DUMMY_USERS;
@@ -33,7 +36,7 @@ public class DummyUsersGenerator {
         List<String> emails = new ArrayList<>();
         int rand = (int) (Math.random() * 10);
         emails.add(DUMMY_USERS.get(rand).getEmail());
-         rand = (int) (Math.random() * 10);
+        rand = (int) (Math.random() * 10);
         emails.add(DUMMY_USERS.get(rand).getEmail());
         rand = (int) (Math.random() * 10);
         emails.add(DUMMY_USERS.get(rand).getEmail());

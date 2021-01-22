@@ -2,8 +2,6 @@ package com.example.mareu.ui.list;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +10,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -30,18 +25,13 @@ import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 import com.example.mareu.service.MeetingService.MeetingsApi;
-import com.example.mareu.service.RoomService.DummyRoomsGenerator;
-import com.example.mareu.service.RoomService.RoomsApi;
 import com.example.mareu.ui.new_meeting.DatePickerFragment;
 import com.example.mareu.ui.new_meeting.NewMeetingActivity;
 import com.example.mareu.utils.DisplayFormatter;
 
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class MeetingListActivity extends AppCompatActivity implements OnDeleteListener, DatePickerDialog.OnDateSetListener {
 
@@ -49,9 +39,7 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
     List<Meeting> filteredMeetings;
     private MeetingAdapter adapter;
     private MeetingsApi meetingsApi;
-    private RoomsApi roomsApi;
     private Room roomChosen;
-    private Date startDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +47,6 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
 
         mBinding = ActivityMeetingListBinding.inflate(LayoutInflater.from(this));
         meetingsApi = DI.getMeetingApi();
-        roomsApi = DI.getRoomApi();
 
         initView();
         initRecyclerView();
@@ -134,7 +121,6 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         List<Meeting> meetings = meetingsApi.getMeetings();
         meetingsApi.deleteMeeting(meetings.get(position));
         adapter.notifyItemRemoved(position);
-        adapter.notifyItemRangeChanged(position, meetings.size());
         //update list - item removed
         verifyEmptyList();
     }
@@ -161,7 +147,7 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                roomChosen = roomsApi.getRooms().get(which);
+                roomChosen = meetingsApi.getRooms().get(which);
                 filteredMeetings = meetingsApi.getMeetingsByRoom(roomChosen);
                 adapter.updateData(filteredMeetings);
                 verifyEmptyList();
@@ -182,7 +168,8 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        startDate = c.getTime();
+
+        Date startDate = c.getTime();
         updateRecyclerView(meetingsApi.getMeetingsByDate(DisplayFormatter.formatDateToString(startDate)));
         verifyEmptyList();
 

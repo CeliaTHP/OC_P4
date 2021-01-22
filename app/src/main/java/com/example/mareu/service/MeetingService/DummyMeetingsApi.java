@@ -4,6 +4,10 @@ import android.util.Log;
 
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
+import com.example.mareu.model.User;
+import com.example.mareu.service.RoomService.DummyRoomsGenerator;
+import com.example.mareu.service.UserService.DummyUsersGenerator;
+import com.example.mareu.ui.list.MeetingAdapter;
 import com.example.mareu.utils.DisplayFormatter;
 
 import java.text.SimpleDateFormat;
@@ -14,6 +18,8 @@ import java.util.List;
 public class DummyMeetingsApi implements MeetingsApi {
 
     private final List<Meeting> meetingList = DummyMeetingsGenerator.generateMeetings();
+    private final List<Room> roomList = DummyRoomsGenerator.generateRoom();
+    private final List<User> users = DummyUsersGenerator.generateUsers();
 
     @Override
     public List<Meeting> getMeetings() {
@@ -23,9 +29,9 @@ public class DummyMeetingsApi implements MeetingsApi {
     @Override
     public List<Meeting> getMeetingsByRoom(Room room) {
         List<Meeting> filteredList = new ArrayList<>();
-        for (int i = 0; i < meetingList.size(); i++) {
-            if (meetingList.get(i).getRoom() == room && !filteredList.contains(meetingList.get(i)))
-                filteredList.add(meetingList.get(i));
+        for (Meeting meeting : meetingList) {
+            if (meeting.getRoom() == room && !filteredList.contains(meeting))
+                filteredList.add(meeting);
         }
         return filteredList;
     }
@@ -40,7 +46,6 @@ public class DummyMeetingsApi implements MeetingsApi {
         return filteredList;
     }
 
-
     @Override
     public void addMeeting(Meeting meeting) {
         meetingList.add(meeting);
@@ -51,5 +56,27 @@ public class DummyMeetingsApi implements MeetingsApi {
         meetingList.remove(meeting);
     }
 
+    /**
+     * Rooms
+     */
+
+    @Override
+    public List<Room> getRooms() {
+        return roomList;
+    }
+
+    /**
+     * Users
+     */
+
+    @Override
+    public List<User> getUsers() {
+        return users;
+    }
+
+    @Override
+    public List<String> getUserEmails() {
+        return DummyUsersGenerator.generateUserEmails();
+    }
 
 }

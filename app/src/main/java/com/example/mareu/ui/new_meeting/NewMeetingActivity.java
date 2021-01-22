@@ -25,7 +25,6 @@ import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 import com.example.mareu.service.MeetingService.MeetingsApi;
-import com.example.mareu.service.RoomService.RoomsApi;
 import com.example.mareu.utils.DisplayFormatter;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -41,7 +40,6 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
     private ActivityNewMeetingBinding mBinding;
     private Meeting meeting;
     private MeetingsApi meetingsApi;
-    private RoomsApi roomsApi;
     private Date startDate;
     private Date startTime;
     private Date endTime;
@@ -56,7 +54,6 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         super.onCreate(savedInstanceState);
 
         meetingsApi = DI.getMeetingApi();
-        roomsApi = DI.getRoomApi();
         initView();
         setToolbar();
         initSpinner();
@@ -119,7 +116,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                room = roomsApi.getRooms().get(position);
+                room = meetingsApi.getRooms().get(position);
                 Log.d("ROOM", room.getName());
             }
 
