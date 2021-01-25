@@ -1,4 +1,4 @@
-package com.example.mareu;
+package com;
 
 import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
