@@ -40,7 +40,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
     private ActivityNewMeetingBinding mBinding;
     private Meeting meeting;
     private MeetingsApi meetingsApi;
-    private Date startDate;
+    private Date date;
     private Date startTime;
     private Date endTime;
     private Boolean viewClick;
@@ -149,7 +149,7 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
                 List<String> attendees = getAttendees();
 
                 if (!meetingTitle.isEmpty() && !meetingDate.isEmpty() && startTime != null && endTime != null && !getAttendees().isEmpty()) {
-                    meeting = new Meeting(meetingTitle, startDate, startTime, endTime, room, attendees);
+                    meeting = new Meeting(meetingTitle, date, startTime, endTime, room, attendees);
                     Log.d("ADD MEETING", "MEETING " + meetingTitle + " CREATED");
                     meetingsApi.addMeeting(meeting);
                     finish();
@@ -240,10 +240,10 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        startDate = c.getTime();
-        String startDateString = DisplayFormatter.formatDateToString(startDate);
-        mBinding.newMeetingDateField.setText(startDateString);
-        Log.d("DATE", startDateString);
+        date = c.getTime();
+        String dateString = DisplayFormatter.formatDateToString(date);
+        mBinding.newMeetingDateField.setText(dateString);
+        Log.d("DATE", dateString);
     }
 
     @Override

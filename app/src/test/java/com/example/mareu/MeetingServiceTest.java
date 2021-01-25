@@ -11,7 +11,11 @@ import com.example.mareu.service.UserService.DummyUsersGenerator;
 import com.example.mareu.utils.DisplayFormatter;
 
 import org.hamcrest.*;
+import org.hamcrest.beans.HasPropertyWithValue;
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
+import org.hamcrest.core.Every;
+import org.hamcrest.core.Is;
+import org.hamcrest.core.IsNot;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +23,7 @@ import org.junit.runners.JUnit4;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -77,11 +82,10 @@ public class MeetingServiceTest {
      */
     @Test
     public void getMeetingsByRoomWithSuccess() {
-        Room roomToCheck = meetingService.getRooms().get(6);
+        Room roomToCheck = meetingService.getRooms().get(0);
         List<Meeting> filteredList = meetingService.getMeetingsByRoom(roomToCheck);
-        //with each
-        //use getRoom on map
-        assertSame(filteredList.get(0).getRoom(), roomToCheck);
+        //assert that every Meeting in our filtered list has the selected room
+        MatcherAssert.assertThat(filteredList, Every.everyItem(HasPropertyWithValue.hasProperty("room", Is.is(roomToCheck))));
     }
 
     /**
@@ -90,11 +94,9 @@ public class MeetingServiceTest {
     @Test
     public void getMeetingsByDateWithSuccess() {
         String dateToCheck = "14/02/2021";
-        List<Meeting> filteredList = meetingService.getMeetings();
-        assertNotEquals(filteredList.get(0).getDate(), dateToCheck);
-        filteredList = meetingService.getMeetingsByDate(dateToCheck);
-        //with each
-        assertEquals(filteredList.get(0).getDate(), DisplayFormatter.formatStringToDate(dateToCheck));
+        List<Meeting> filteredList = meetingService.getMeetingsByDate(dateToCheck);
+        //assert that every Meeting in our filtered list has the selected date
+        MatcherAssert.assertThat(filteredList, Every.everyItem(HasPropertyWithValue.hasProperty("date", Is.is(DisplayFormatter.formatStringToDate(dateToCheck)))));
     }
 
     /**

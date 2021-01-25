@@ -170,8 +170,8 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
 
-        Date startDate = c.getTime();
-        updateRecyclerView(meetingsApi.getMeetingsByDate(DisplayFormatter.formatDateToString(startDate)));
+        Date date = c.getTime();
+        updateRecyclerView(meetingsApi.getMeetingsByDate(DisplayFormatter.formatDateToString(date)));
         verifyEmptyList();
 
     }
