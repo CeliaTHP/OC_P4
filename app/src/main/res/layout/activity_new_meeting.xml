@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/new_meeting_layout"
         android:layout_marginTop="10dp">
 
         <androidx.constraintlayout.widget.Guideline

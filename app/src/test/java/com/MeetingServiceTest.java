@@ -122,6 +122,5 @@ public class MeetingServiceTest {
         //assert that our list contains all meetings
         MatcherAssert.assertThat(users, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedUsers.toArray()));
     }
-
-
+    
 }

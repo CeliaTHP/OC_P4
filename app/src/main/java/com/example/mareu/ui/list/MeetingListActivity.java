@@ -98,7 +98,7 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
 
     private void initFabButton() {
 
-        mBinding.listFab.setOnClickListener(new View.OnClickListener() {
+        mBinding.listFabCreateMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MeetingListActivity.this, NewMeetingActivity.class);
