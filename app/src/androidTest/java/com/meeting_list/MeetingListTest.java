@@ -81,7 +81,6 @@ public class MeetingListTest {
      */
     @Test
     public void myMeetingsList_shouldNotBeEmpty() {
-        // First scroll to the position that needs to be matched and click on it.
         onView(AllOf.allOf(ViewMatchers.withId(R.id.meeting_recycler_view), isDisplayed()))
                 .check(matches(hasMinimumChildCount(1)));
     }
@@ -103,15 +102,20 @@ public class MeetingListTest {
         onView(withText("Filtrer par date")).perform(click());
         // Pick a date
         onView(isAssignableFrom(DatePicker.class)).perform(PickerActions.setDate(2021, 3, 19));
+        onView(withText("OK")).perform(click());
         // Verify that our recyclerView displays one Meeting
-        // Back to the main activity
-        Espresso.pressBack();
+        onView(allOf(withId(R.id.meeting_recycler_view), isDisplayed())).check(withItemCount(1));
         //Open the menu
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getTargetContext());
         // Select the "filter by room" option
         onView(withText("Filtrer par salle")).perform(click());
-    }
+        // Select the "PEACH" room
+        onView(withText("PEACH")).perform(click());
+        // Verify that our recyclerView displays two Meeting
+        onView(allOf(withId(R.id.meeting_recycler_view), isDisplayed())).check(withItemCount(2));
 
+
+    }
 
     /**
      * When we delete an item, the item is no more shown
@@ -127,6 +131,11 @@ public class MeetingListTest {
         // Then : the number of element is 10
         onView(allOf(withId(R.id.meeting_recycler_view), isDisplayed())).check(withItemCount(ITEMS_COUNT-1));
     }
+
+    //création meeting puis verification qu'il apparait dans la liste
+
+
+
 
 
 

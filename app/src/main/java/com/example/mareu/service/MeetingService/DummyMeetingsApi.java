@@ -37,7 +37,7 @@ public class DummyMeetingsApi implements MeetingsApi {
     }
 
     @Override
-    public List<Meeting> getMeetingsByDate(String date) {
+    public List<Meeting> getMeetingsByDate(String date) { //Date date
         List<Meeting> filteredList = new ArrayList<>();
         for (Meeting meeting : meetingList) {
             if (meeting.getDate().equals(DisplayFormatter.formatStringToDate(date)) && !filteredList.contains(meeting))

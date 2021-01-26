@@ -29,6 +29,7 @@ import com.example.mareu.ui.new_meeting.DatePickerFragment;
 import com.example.mareu.ui.new_meeting.NewMeetingActivity;
 import com.example.mareu.utils.DisplayFormatter;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +37,7 @@ import java.util.List;
 public class MeetingListActivity extends AppCompatActivity implements OnDeleteListener, DatePickerDialog.OnDateSetListener {
 
     private ActivityMeetingListBinding mBinding;
-    List<Meeting> filteredMeetings;
+    private List<Meeting> filteredMeetings;
     private MeetingAdapter adapter;
     private MeetingsApi meetingsApi;
     private Room roomChosen;
@@ -63,19 +64,16 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.filter_reset:
-                updateRecyclerView(meetingsApi.getMeetings());
-                verifyEmptyList();
-                break;
-            case R.id.filter_date:
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(), "filter_by_date");
-                break;
-            case R.id.filter_room:
-                initRoomDialog();
-                break;
-
+        if (item.getItemId() == R.id.filter_reset) {
+            updateAdapter(meetingsApi.getMeetings());
+            verifyEmptyList();
+        }
+        if (item.getItemId() == R.id.filter_date) {
+            DialogFragment datePicker = new DatePickerFragment();
+            datePicker.show(getSupportFragmentManager(), "filter_by_date");
+        }
+        if (item.getItemId() == R.id.filter_room) {
+            initRoomDialog();
         }
 
         return super.onOptionsItemSelected(item);
@@ -98,7 +96,6 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         mBinding.meetingRecyclerView.setAdapter(adapter);
     }
 
-
     private void initFabButton() {
 
         mBinding.listFab.setOnClickListener(new View.OnClickListener() {
@@ -117,15 +114,12 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
     }
 
     @Override
-    public void onDelete(int position) {
-        List<Meeting> meetings = meetingsApi.getMeetings();
-        meetingsApi.deleteMeeting(meetings.get(position));
-        adapter.notifyItemRemoved(position);
-        adapter.notifyItemRangeChanged(position,meetings.size());
-        //update list - item removed
+    public void onDelete(Meeting meeting) {
+        Log.d("LIST",(meetingsApi.getMeetings() == adapter.mMeetings) + "");
+        adapter.removeMeeting(meeting);
+        meetingsApi.deleteMeeting(meeting);
         verifyEmptyList();
     }
-
 
     public void verifyEmptyList() {
         if (adapter.getItemCount() <= 0) {
@@ -135,7 +129,6 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         } else {
             mBinding.meetingsArrow.setVisibility(View.INVISIBLE);
             mBinding.noMeeting.setVisibility(View.INVISIBLE);
-
         }
     }
 
@@ -158,7 +151,7 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         dialog.show();
     }
 
-    public void updateRecyclerView(List<Meeting> meetings) {
+    public void updateAdapter(List<Meeting> meetings) {
         adapter.updateData(meetings);
     }
 
@@ -169,9 +162,8 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-
         Date date = c.getTime();
-        updateRecyclerView(meetingsApi.getMeetingsByDate(DisplayFormatter.formatDateToString(date)));
+        updateAdapter(meetingsApi.getMeetingsByDate(DisplayFormatter.formatDateToString(date)));
         verifyEmptyList();
 
     }

@@ -26,6 +26,7 @@
     <string name ="filter_reset">Filtrer par défaut</string>
     <string name="filter_room_title">Salle :</string>
     <string name="user_email">%1$s.%2$s@lamzone.com</string>
+    <string name="color_of_the_room">color of the room</string>
 
     <string-array name="spinner_rooms">
         <item>PEACH</item>

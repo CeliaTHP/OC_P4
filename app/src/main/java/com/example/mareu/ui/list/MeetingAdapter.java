@@ -20,21 +20,22 @@ import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 import com.example.mareu.utils.DisplayFormatter;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewHolder> {
 
-    private List<Meeting> mMeetings;
+    public List<Meeting> mMeetings;
     private final OnDeleteListener onDeleteListener;
 
     public MeetingAdapter(List<Meeting> meetings, OnDeleteListener onDeleteListener) {
-        this.mMeetings = meetings;
+        this.mMeetings = new ArrayList<>(meetings);
         this.onDeleteListener = onDeleteListener;
     }
-
 
     @NonNull
     @Override
@@ -50,7 +51,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
         Meeting meeting = mMeetings.get(position);
         String name = meeting.getTitle();
         String startTime = DisplayFormatter.formatTimeToString(meeting.getStartTime());
-
 
         Room room = meeting.getRoom();
         List<String> attendees = meeting.getAttendees();
@@ -70,7 +70,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
         holder.itemLayoutBinding.meetingsDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onDeleteListener.onDelete(position); //donner l'objet
+                onDeleteListener.onDelete(meeting);
             }
         });
     }
@@ -81,9 +81,16 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
     }
 
     public void updateData(List<Meeting> meetings) {
-        mMeetings = meetings;
+        mMeetings = new ArrayList<>(meetings);
         notifyDataSetChanged();
     }
 
+    public void removeMeeting(Meeting meeting) {
+        int index = mMeetings.indexOf(meeting);
+        if (index != -1){
+            mMeetings.remove(index);
+            notifyItemRemoved(index);
+        }
+    }
 }
 
