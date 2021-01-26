@@ -61,11 +61,7 @@ import static com.utils.RecyclerViewItemCountAssertion.withItemCount;
 public class MeetingListTest {
 
     private static int ITEMS_COUNT = 11;
-    private ActivityMeetingListBinding activityMeetingListBinding;
-
-    private MeetingListActivity listActivity;
     private List<Meeting> meetingList = DummyMeetingsGenerator.generateMeetings(); //public static array instead ?
-
 
     @Rule
     public ActivityScenarioRule<MeetingListActivity> mActivityTestRule = new ActivityScenarioRule<>(MeetingListActivity.class);

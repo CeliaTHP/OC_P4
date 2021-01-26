@@ -13,6 +13,7 @@ import com.example.mareu.utils.DisplayFormatter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class DummyMeetingsApi implements MeetingsApi {
@@ -37,10 +38,10 @@ public class DummyMeetingsApi implements MeetingsApi {
     }
 
     @Override
-    public List<Meeting> getMeetingsByDate(String date) { //Date date
+    public List<Meeting> getMeetingsByDate(Date date) {
         List<Meeting> filteredList = new ArrayList<>();
         for (Meeting meeting : meetingList) {
-            if (meeting.getDate().equals(DisplayFormatter.formatStringToDate(date)) && !filteredList.contains(meeting))
+            if (DisplayFormatter.formatDateToString(meeting.getDate()).equals(DisplayFormatter.formatDateToString(date)) && !filteredList.contains(meeting))
                 filteredList.add(meeting);
         }
         return filteredList;

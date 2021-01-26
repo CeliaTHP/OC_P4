@@ -1,5 +1,7 @@
 package com;
 
+import android.view.Display;
+
 import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
@@ -22,6 +24,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +37,6 @@ import static org.junit.Assert.*;
 public class MeetingServiceTest {
 
     private MeetingsApi meetingService;
-
 
     @Before
     public void setup() {
@@ -93,10 +95,10 @@ public class MeetingServiceTest {
      */
     @Test
     public void getMeetingsByDateWithSuccess() {
-        String dateToCheck = "14/02/2021";
+        Date dateToCheck = DisplayFormatter.formatStringToDate( "14/02/2021");
         List<Meeting> filteredList = meetingService.getMeetingsByDate(dateToCheck);
         //assert that every Meeting in our filtered list has the selected date
-        MatcherAssert.assertThat(filteredList, Every.everyItem(HasPropertyWithValue.hasProperty("date", Is.is(DisplayFormatter.formatStringToDate(dateToCheck)))));
+        MatcherAssert.assertThat(filteredList, Every.everyItem(HasPropertyWithValue.hasProperty("date", Is.is(dateToCheck))));
     }
 
     /**

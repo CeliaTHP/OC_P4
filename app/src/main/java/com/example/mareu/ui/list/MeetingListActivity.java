@@ -115,7 +115,6 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
 
     @Override
     public void onDelete(Meeting meeting) {
-        Log.d("LIST",(meetingsApi.getMeetings() == adapter.mMeetings) + "");
         adapter.removeMeeting(meeting);
         meetingsApi.deleteMeeting(meeting);
         verifyEmptyList();
@@ -163,7 +162,9 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
         Date date = c.getTime();
-        updateAdapter(meetingsApi.getMeetingsByDate(DisplayFormatter.formatDateToString(date)));
+        filteredMeetings = meetingsApi.getMeetingsByDate(date);
+        updateAdapter(filteredMeetings);
+        Log.d("DATE CHOSEN", filteredMeetings.toString());
         verifyEmptyList();
 
     }

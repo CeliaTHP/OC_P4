@@ -19,7 +19,7 @@ public interface MeetingsApi {
 
     List<Meeting> getMeetingsByRoom(Room room);
 
-    List<Meeting> getMeetingsByDate(String date);
+    List<Meeting> getMeetingsByDate(Date date);
 
     void addMeeting(Meeting meeting);
 
