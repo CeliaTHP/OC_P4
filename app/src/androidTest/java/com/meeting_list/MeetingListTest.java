@@ -1,14 +1,10 @@
 package com.meeting_list;
 
 import android.widget.DatePicker;
-import android.widget.Spinner;
 import android.widget.TimePicker;
-import android.widget.Toolbar;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.action.PressBackAction;
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -18,14 +14,9 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 
 import com.example.mareu.R;
-import com.example.mareu.databinding.ActivityMeetingListBinding;
-import com.example.mareu.model.Meeting;
-import com.example.mareu.service.MeetingService.DummyMeetingsGenerator;
 import com.example.mareu.ui.list.MeetingListActivity;
 import com.utils.DeleteViewAction;
-import com.utils.RecyclerViewItemCountAssertion;
 
-import org.hamcrest.Matchers;
 import org.hamcrest.core.AllOf;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -34,30 +25,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
-import java.util.List;
-
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
-import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.action.ViewActions.typeTextIntoFocusedView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isFocusable;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.*;
 import static com.utils.RecyclerViewItemCountAssertion.withItemCount;
-
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -65,11 +48,10 @@ import static com.utils.RecyclerViewItemCountAssertion.withItemCount;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-@FixMethodOrder(MethodSorters.JVM)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MeetingListTest {
 
     private static int ITEMS_COUNT = 11;
-    private List<Meeting> meetingList = DummyMeetingsGenerator.generateMeetings(); //public static array instead ?
 
     @Rule
     public ActivityScenarioRule<MeetingListActivity> mActivityTestRule = new ActivityScenarioRule<>(MeetingListActivity.class);
@@ -135,8 +117,6 @@ public class MeetingListTest {
         onView(allOf(withId(R.id.meeting_recycler_view), isDisplayed())).check(withItemCount(2));
     }
 
-
-
     @Test
     public void D_createMeeting() {
         // When perform a click on the Add icon
@@ -161,13 +141,17 @@ public class MeetingListTest {
         onView(withId(R.id.new_meeting_room_spinner)).perform(click());
         onView(withText("DAISY")).perform(click());
         // Add attendees
+
+        // Write an invalid email
         onView(withId(R.id.new_meeting_new_attendee)).perform(typeText("invalidemail@com"));
         Espresso.pressBack();
         onView(withId(R.id.new_meeting_add_attendee)).perform(click());
         onView(withId(R.id.new_meeting_new_attendee)).perform(clearText());
+        // Write a valid email
         onView(withId(R.id.new_meeting_new_attendee)).perform(typeText("valid@email.com"));
         Espresso.pressBack();
         onView(withId(R.id.new_meeting_add_attendee)).perform(click());
+        // Write a valid email
         onView(withId(R.id.new_meeting_new_attendee)).perform(typeText("another@valid.email"));
         Espresso.pressBack();
         onView(withId(R.id.new_meeting_add_attendee)).perform(click());
@@ -175,7 +159,5 @@ public class MeetingListTest {
         // Our meeting is added to our list
         onView(allOf(withId(R.id.meeting_recycler_view), isDisplayed())).check(withItemCount(ITEMS_COUNT + 1));
     }
-
-
 
 }

@@ -1,18 +1,13 @@
 package com.example.mareu.service.MeetingService;
 
-import android.util.Log;
-
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 import com.example.mareu.model.User;
 import com.example.mareu.service.RoomService.DummyRoomsGenerator;
 import com.example.mareu.service.UserService.DummyUsersGenerator;
-import com.example.mareu.ui.list.MeetingAdapter;
 import com.example.mareu.utils.DisplayFormatter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 

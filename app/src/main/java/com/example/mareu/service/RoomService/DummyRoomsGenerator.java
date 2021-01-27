@@ -1,13 +1,9 @@
 package com.example.mareu.service.RoomService;
 
 import com.example.mareu.R;
-import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class DummyRoomsGenerator {
 

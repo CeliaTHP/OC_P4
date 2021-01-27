@@ -1,14 +1,9 @@
 package com.example.mareu.service.MeetingService;
 
-import android.util.Log;
-
 import com.example.mareu.model.Meeting;
 import com.example.mareu.utils.DisplayFormatter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 
 public class DummyMeetingsGenerator {
 

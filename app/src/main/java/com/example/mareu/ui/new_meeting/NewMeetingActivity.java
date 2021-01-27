@@ -3,7 +3,6 @@ package com.example.mareu.ui.new_meeting;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -28,7 +27,6 @@ import com.example.mareu.service.MeetingService.MeetingsApi;
 import com.example.mareu.utils.DisplayFormatter;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-
 
 import java.util.ArrayList;
 import java.util.Calendar;

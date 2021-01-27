@@ -27,9 +27,7 @@ import com.example.mareu.model.Room;
 import com.example.mareu.service.MeetingService.MeetingsApi;
 import com.example.mareu.ui.new_meeting.DatePickerFragment;
 import com.example.mareu.ui.new_meeting.NewMeetingActivity;
-import com.example.mareu.utils.DisplayFormatter;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;

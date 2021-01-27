@@ -1,11 +1,9 @@
 package com.example.mareu.service.UserService;
 
-import com.example.mareu.R;
-import com.example.mareu.model.Room;
+
 import com.example.mareu.model.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 

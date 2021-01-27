@@ -1,9 +1,7 @@
 package com.example.mareu.model;
 
 import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 

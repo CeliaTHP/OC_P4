@@ -1,7 +1,5 @@
 package com;
 
-import android.view.Display;
-
 import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
@@ -17,16 +15,15 @@ import org.hamcrest.beans.HasPropertyWithValue;
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 import org.hamcrest.core.Every;
 import org.hamcrest.core.Is;
-import org.hamcrest.core.IsNot;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
+import org.junit.runners.MethodSorters;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -34,6 +31,8 @@ import static org.junit.Assert.*;
  * Unit test on Meeting service
  */
 @RunWith(JUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
 public class MeetingServiceTest {
 
     private MeetingsApi meetingService;
@@ -47,7 +46,7 @@ public class MeetingServiceTest {
      * Get the Meeting list
      */
     @Test
-    public void getMeetingsWithSuccess() {
+    public void A_getMeetingsWithSuccess() {
         List<Meeting> meetings = meetingService.getMeetings();
         List<Meeting> expectedMeetings = DummyMeetingsGenerator.generateMeetings();
         //assert that our list contains all meetings
@@ -58,20 +57,19 @@ public class MeetingServiceTest {
      * Create a Meeting
      */
     @Test
-    public void addMeetingWithSuccess() {
+    public void B_addMeetingWithSuccess() {
         Meeting meeting = new Meeting("TestMeeting", DisplayFormatter.formatStringToDate("21/12/21"), DisplayFormatter.formatStringToTime("08:00"), DisplayFormatter.formatStringToTime("10:00"), meetingService.getRooms().get(3), meetingService.getUserEmails());
         assertFalse(meetingService.getMeetings().contains(meeting));
         meetingService.addMeeting(meeting);
         //assert that our Meeting has been added to the Meeting list
         assertTrue(meetingService.getMeetings().contains(meeting));
-
     }
 
     /**
      * Delete a meeting
      */
     @Test
-    public void deleteMeetingWithSuccess() {
+    public void C_deleteMeetingWithSuccess() {
         Meeting meetingToDelete = meetingService.getMeetings().get(0);
         assertTrue(meetingService.getMeetings().contains(meetingToDelete));
         meetingService.deleteMeeting(meetingToDelete);
@@ -83,7 +81,7 @@ public class MeetingServiceTest {
      * Get the Meeting list filtered by room
      */
     @Test
-    public void getMeetingsByRoomWithSuccess() {
+    public void D_getMeetingsByRoomWithSuccess() {
         Room roomToCheck = meetingService.getRooms().get(0);
         List<Meeting> filteredList = meetingService.getMeetingsByRoom(roomToCheck);
         //assert that every Meeting in our filtered list has the selected room
@@ -94,8 +92,8 @@ public class MeetingServiceTest {
      * Get the Meeting list filtered by date
      */
     @Test
-    public void getMeetingsByDateWithSuccess() {
-        Date dateToCheck = DisplayFormatter.formatStringToDate( "14/02/2021");
+    public void E_getMeetingsByDateWithSuccess() {
+        Date dateToCheck = DisplayFormatter.formatStringToDate("14/02/2021");
         List<Meeting> filteredList = meetingService.getMeetingsByDate(dateToCheck);
         //assert that every Meeting in our filtered list has the selected date
         MatcherAssert.assertThat(filteredList, Every.everyItem(HasPropertyWithValue.hasProperty("date", Is.is(dateToCheck))));
@@ -105,7 +103,7 @@ public class MeetingServiceTest {
      * Get the Room List
      */
     @Test
-    public void getRoomsWithSuccess() {
+    public void F_getRoomsWithSuccess() {
         List<Room> rooms = meetingService.getRooms();
         List<Room> expectedRooms = DummyRoomsGenerator.generateRoom();
         //assert that our list contains all meetings
@@ -116,11 +114,11 @@ public class MeetingServiceTest {
      * Get the User List
      */
     @Test
-    public void getUsersWithSuccess() {
+    public void G_getUsersWithSuccess() {
         List<User> users = meetingService.getUsers();
         List<User> expectedUsers = DummyUsersGenerator.generateUsers();
         //assert that our list contains all meetings
         MatcherAssert.assertThat(users, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedUsers.toArray()));
     }
-    
+
 }

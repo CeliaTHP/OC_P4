@@ -2,7 +2,6 @@ package com.example.mareu.ui.new_meeting;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;

@@ -2,30 +2,23 @@ package com.example.mareu.ui.list;
 
 
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.example.mareu.callback.OnDeleteListener;
-
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareu.R;
+import com.example.mareu.callback.OnDeleteListener;
 import com.example.mareu.databinding.ItemLayoutBinding;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 import com.example.mareu.utils.DisplayFormatter;
 
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewHolder> {
 
@@ -87,7 +80,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
 
     public void removeMeeting(Meeting meeting) {
         int index = mMeetings.indexOf(meeting);
-        if (index != -1){
+        if (index != -1) {
             mMeetings.remove(index);
             notifyItemRemoved(index);
         }

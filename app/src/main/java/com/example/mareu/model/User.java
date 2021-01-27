@@ -1,12 +1,5 @@
 package com.example.mareu.model;
 
-import android.content.Context;
-import android.content.res.Resources;
-
-import androidx.core.content.ContextCompat;
-
-import com.example.mareu.R;
-
 public class User {
 
     private String name;
