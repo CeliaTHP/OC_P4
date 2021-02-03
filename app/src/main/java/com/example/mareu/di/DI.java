@@ -1,7 +1,7 @@
 package com.example.mareu.di;
 
-import com.example.mareu.service.MeetingService.DummyMeetingsApi;
-import com.example.mareu.service.MeetingService.MeetingsApi;
+import com.example.mareu.service.meetingService.DummyMeetingsApi;
+import com.example.mareu.service.meetingService.MeetingsApi;
 
 
 /**
@@ -14,7 +14,7 @@ public class DI {
     /**
      * Get an instance on @{@link MeetingsApi}
      *
-     * @return
+     * @return meetingsApi
      */
     public static MeetingsApi getMeetingApi() {
         return meetingsApi;

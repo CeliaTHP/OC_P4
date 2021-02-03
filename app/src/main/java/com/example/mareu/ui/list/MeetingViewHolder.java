@@ -13,7 +13,7 @@ public class MeetingViewHolder {
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ItemLayoutBinding itemLayoutBinding;
+        public final ItemLayoutBinding itemLayoutBinding;
 
         public ViewHolder(ItemLayoutBinding itemLayoutBinding) {
             super(itemLayoutBinding.getRoot());

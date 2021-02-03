@@ -21,9 +21,4 @@
 
     </style>
 
-    <style name="chip_text_apperance" parent="TextAppearance.MaterialComponents.Chip">
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
-
 </resources>

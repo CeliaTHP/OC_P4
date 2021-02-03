@@ -1,4 +1,4 @@
-package com.example.mareu.service.MeetingService;
+package com.example.mareu.service.meetingService;
 
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;

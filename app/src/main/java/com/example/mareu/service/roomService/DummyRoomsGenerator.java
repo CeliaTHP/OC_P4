@@ -1,4 +1,4 @@
-package com.example.mareu.service.RoomService;
+package com.example.mareu.service.roomService;
 
 import com.example.mareu.R;
 import com.example.mareu.model.Room;

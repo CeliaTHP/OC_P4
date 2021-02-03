@@ -23,7 +23,7 @@ import com.example.mareu.databinding.ActivityNewMeetingBinding;
 import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
-import com.example.mareu.service.MeetingService.MeetingsApi;
+import com.example.mareu.service.meetingService.MeetingsApi;
 import com.example.mareu.utils.DisplayFormatter;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -61,7 +61,6 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
 
     }
 
-    //CHANGER VIEW
     private void initView() {
         mBinding = ActivityNewMeetingBinding.inflate(LayoutInflater.from(this));
         setContentView(mBinding.getRoot());
@@ -69,53 +68,44 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
 
     private void setToolbar() {
         ActionBar toolbar = getSupportActionBar();
-        toolbar.setTitle(R.string.new_meeting_pres);
+        if (toolbar != null)
+            toolbar.setTitle(R.string.new_meeting_pres);
     }
 
     private void initDatePicker() {
         mBinding.newMeetingDateField.setFocusable(false);
-        mBinding.newMeetingDateField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(), "date picker");
-            }
+        mBinding.newMeetingDateField.setOnClickListener(v -> {
+            DialogFragment datePicker = new DatePickerFragment();
+            datePicker.show(getSupportFragmentManager(), "date picker");
         });
 
     }
 
     private void initTimePicker() {
         mBinding.newMeetingStartTimeField.setFocusable(false);
-        mBinding.newMeetingStartTimeField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewClick = true;
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(), "time picker");
-            }
+        mBinding.newMeetingStartTimeField.setOnClickListener(v -> {
+            viewClick = true;
+            DialogFragment timePicker = new TimePickerFragment();
+            timePicker.show(getSupportFragmentManager(), "time picker");
         });
         mBinding.newMeetingEndTimeField.setFocusable(false);
-        mBinding.newMeetingEndTimeField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewClick = false;
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(), "time picker");
-            }
+        mBinding.newMeetingEndTimeField.setOnClickListener(v -> {
+            viewClick = false;
+            DialogFragment timePicker = new TimePickerFragment();
+            timePicker.show(getSupportFragmentManager(), "time picker");
         });
     }
 
     private void initSpinner() {
         Spinner spinner = mBinding.newMeetingRoomSpinner;
-        //check WARNING
-        ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.spinner_rooms, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.spinner_rooms, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 room = meetingsApi.getRooms().get(position);
-                Log.d("ROOM", room.getName());
             }
 
             @Override
@@ -125,48 +115,37 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
     }
 
     private void initAddButton() {
-
         mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees, getAttendees().size()));
 
-        mBinding.newMeetingAddAttendee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chipGroup = mBinding.chipGroup;
-                initChip();
-            }
+        mBinding.newMeetingAddAttendee.setOnClickListener(v -> {
+            chipGroup = mBinding.chipGroup;
+            initChip();
         });
 
-        mBinding.newMeetingSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //String title, String date, String time, String room
-                String meetingTitle = mBinding.newMeetingTitleField.getText().toString();
+        mBinding.newMeetingSend.setOnClickListener(v -> {
+            String meetingTitle = mBinding.newMeetingTitleField.getText().toString();
+            String meetingDate = mBinding.newMeetingDateField.getText().toString();
+            List<String> attendees = getAttendees();
 
-                String meetingDate = mBinding.newMeetingDateField.getText().toString();
-
-                List<String> attendees = getAttendees();
-
-                if (!meetingTitle.isEmpty() && !meetingDate.isEmpty() && startTime != null && endTime != null && !getAttendees().isEmpty()) {
-                    meeting = new Meeting(meetingTitle, date, startTime, endTime, room, attendees);
-                    Log.d("ADD MEETING", "MEETING " + meetingTitle + " CREATED");
-                    meetingsApi.addMeeting(meeting);
-                    finish();
-                } else {
-                    alertEmptyFields();
-                    String text = getString(R.string.invalid_meeting);
-                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+            if (!meetingTitle.isEmpty() && !meetingDate.isEmpty() && startTime != null && endTime != null && !getAttendees().isEmpty()) {
+                meeting = new Meeting(meetingTitle, date, startTime, endTime, room, attendees);
+                meetingsApi.addMeeting(meeting);
+                String text = getString(R.string.valid_meeting, meeting.getTitle());
+                Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                toast.show();
+                finish();
+            } else {
+                alertEmptyFields();
+                String text = getString(R.string.invalid_meeting);
+                Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                toast.show();
             }
-
         });
 
     }
 
     public void initChip() {
-
         if (!validEmail(mBinding.newMeetingNewAttendee.getText())) {
-            //toast invalid email
             String text = getString(R.string.invalid_email);
             Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
             toast.show();
@@ -175,12 +154,10 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
             chip.setText(mBinding.newMeetingNewAttendee.getText());
             mBinding.newMeetingNewAttendee.setText("");
             chip.setCloseIconVisible(true);
-            chip.setOnCloseIconClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    chipGroup.removeView(chip);
-                    mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees, chipGroup.getChildCount()));
+            chip.setOnCloseIconClickListener(view -> {
+                chipGroup.removeView(chip);
+                mBinding.newMeetingAttendees.setText(getString(R.string.new_meeting_attendees, chipGroup.getChildCount()));
 
-                }
             });
             chip.setTextColor(getResources().getColor(R.color.black));
             chipGroup.addView(chip);
@@ -204,7 +181,6 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
     }
 
     public void alertEmptyFields() {
-
         if (mBinding.newMeetingTitleField.getText().toString().isEmpty())
             mBinding.newMeetingTitleField.setBackgroundColor(getResources().getColor(R.color.light_red));
         else
@@ -241,7 +217,6 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
         date = c.getTime();
         String dateString = DisplayFormatter.formatDateToString(date);
         mBinding.newMeetingDateField.setText(dateString);
-        Log.d("DATE", dateString);
     }
 
     @Override
@@ -253,12 +228,10 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
             startTime = c.getTime();
             String startTimeString = DisplayFormatter.formatTimeToString(startTime);
             mBinding.newMeetingStartTimeField.setText(startTimeString);
-            Log.d("START TIME", startTimeString);
         } else {
             endTime = c.getTime();
             String endTimeString = DisplayFormatter.formatTimeToString(endTime);
             mBinding.newMeetingEndTimeField.setText(endTimeString);
-            Log.d("END TIME", endTimeString);
         }
     }
 }

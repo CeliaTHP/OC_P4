@@ -2,10 +2,8 @@ package com.example.mareu.ui.list;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +22,7 @@ import com.example.mareu.databinding.ActivityMeetingListBinding;
 import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
-import com.example.mareu.service.MeetingService.MeetingsApi;
+import com.example.mareu.service.meetingService.MeetingsApi;
 import com.example.mareu.ui.new_meeting.DatePickerFragment;
 import com.example.mareu.ui.new_meeting.NewMeetingActivity;
 
@@ -96,12 +94,9 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
 
     private void initFabButton() {
 
-        mBinding.listFabCreateMeeting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MeetingListActivity.this, NewMeetingActivity.class);
-                startActivity(intent);
-            }
+        mBinding.listFabCreateMeeting.setOnClickListener(v -> {
+            Intent intent = new Intent(MeetingListActivity.this, NewMeetingActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -120,7 +115,6 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
 
     public void verifyEmptyList() {
         if (adapter.getItemCount() <= 0) {
-            Log.d("OnDelete from Activity", "EmptyList");
             mBinding.meetingsArrow.setVisibility(View.VISIBLE);
             mBinding.noMeeting.setVisibility(View.VISIBLE);
         } else {
@@ -133,17 +127,12 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Example");
         String[] rooms = getResources().getStringArray(R.array.spinner_rooms);
-        dialog.setItems(rooms, new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                roomChosen = meetingsApi.getRooms().get(which);
-                filteredMeetings = meetingsApi.getMeetingsByRoom(roomChosen);
-                adapter.updateData(filteredMeetings);
-                verifyEmptyList();
-            }
-
+        dialog.setItems(rooms, (dialog1, which) -> {
+            dialog1.dismiss();
+            roomChosen = meetingsApi.getRooms().get(which);
+            filteredMeetings = meetingsApi.getMeetingsByRoom(roomChosen);
+            adapter.updateData(filteredMeetings);
+            verifyEmptyList();
         });
         dialog.show();
     }
@@ -162,7 +151,6 @@ public class MeetingListActivity extends AppCompatActivity implements OnDeleteLi
         Date date = c.getTime();
         filteredMeetings = meetingsApi.getMeetingsByDate(date);
         updateAdapter(filteredMeetings);
-        Log.d("DATE CHOSEN", filteredMeetings.toString());
         verifyEmptyList();
 
     }

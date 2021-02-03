@@ -7,9 +7,9 @@
     tools:context=".ui.new_meeting.NewMeetingActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/new_meeting_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/new_meeting_layout"
         android:layout_marginTop="10dp">
 
         <androidx.constraintlayout.widget.Guideline
@@ -45,6 +45,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:hint="@string/new_meeting_title_hint"
+            android:inputType="text"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@id/guidelineRight"
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"
@@ -68,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="@string/new_meeting_date_field"
+            android:inputType="date"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/guidelineRight"
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"
@@ -92,6 +94,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:hint="@string/new_meeting_time_field"
+            android:inputType="time"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/guidelineRight"
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"
@@ -116,6 +119,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:hint="@string/new_meeting_time_field"
+            android:inputType="time"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/guidelineRight"
             app:layout_constraintStart_toStartOf="@id/guidelineLeft"

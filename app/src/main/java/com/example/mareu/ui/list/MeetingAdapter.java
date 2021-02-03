@@ -1,13 +1,11 @@
 package com.example.mareu.ui.list;
 
 
-import android.os.Build;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mareu.R;
@@ -37,7 +35,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
         return new MeetingViewHolder.ViewHolder(binding);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull MeetingViewHolder.ViewHolder holder, int position) {
 
@@ -56,16 +53,11 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
         for (String value : attendees) {
             builder.append(value);
         }
-        String emails = String.join(", ", attendees);
+        String emails = TextUtils.join(", ", attendees);
         holder.itemLayoutBinding.meetingAttendees.setText(emails);
         holder.itemLayoutBinding.meetingImage.setImageResource(pic);
 
-        holder.itemLayoutBinding.meetingsDeleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onDeleteListener.onDelete(meeting);
-            }
-        });
+        holder.itemLayoutBinding.meetingsDeleteButton.setOnClickListener(v -> onDeleteListener.onDelete(meeting));
     }
 
     @Override

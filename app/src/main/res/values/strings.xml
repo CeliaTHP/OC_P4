@@ -9,23 +9,19 @@
     <string name="new_meeting_end_time">Heure de fin</string>
     <string name="new_meeting_time_field">00:00</string>
     <string name="new_meeting_room">Salle</string>
-    <string name="new_meeting_room_field">Waluigi</string>
     <string name="meeting_creation">Valider</string>
     <string name="list_toolbar_title">Liste des réunions</string>
     <string name="no_meeting">Il n\'y a pas de réunion de prévue. Créez la votre ici </string>
     <string name="new_meeting_date">Date</string>
     <string name="new_meeting_date_field">26/05/2012</string>
-    <string name="registered_date">%1$s/%2$s/%3$d</string>
-    <string name="registered_time">%1$s:%2$s</string>
     <string name="new_meeting_attendee">maxime@lamzone.com</string>
     <string name="new_meeting_attendees">Participants (%1$d)</string>
     <string name="invalid_email">Le format de l\'adresse n\'est pas valide.</string>
     <string name="invalid_meeting">Veuillez compléter les champs manquant pour créer votre réunion.</string>
+    <string name="valid_meeting">La réunion %1$s a été ajoutée à la liste.</string>
     <string name ="filter_date">Filtrer par date</string>
     <string name ="filter_room">Filtrer par salle</string>
     <string name ="filter_reset">Filtrer par défaut</string>
-    <string name="filter_room_title">Salle :</string>
-    <string name="user_email">%1$s.%2$s@lamzone.com</string>
     <string name="color_of_the_room">color of the room</string>
 
     <string-array name="spinner_rooms">

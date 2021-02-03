@@ -4,10 +4,10 @@ import com.example.mareu.di.DI;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 import com.example.mareu.model.User;
-import com.example.mareu.service.MeetingService.DummyMeetingsGenerator;
-import com.example.mareu.service.MeetingService.MeetingsApi;
-import com.example.mareu.service.RoomService.DummyRoomsGenerator;
-import com.example.mareu.service.UserService.DummyUsersGenerator;
+import com.example.mareu.service.meetingService.DummyMeetingsGenerator;
+import com.example.mareu.service.meetingService.MeetingsApi;
+import com.example.mareu.service.roomService.DummyRoomsGenerator;
+import com.example.mareu.service.userService.DummyUsersGenerator;
 import com.example.mareu.utils.DisplayFormatter;
 
 import org.hamcrest.*;
