@@ -5,9 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public interface DisplayFormatter {
+public class DisplayFormatter {
 
-    static Date formatStringToDate(String dateString) {
+    public static Date formatStringToDate(String dateString) {
         Date date = null;
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         try {
@@ -18,13 +18,13 @@ public interface DisplayFormatter {
         return date;
     }
 
-    static String formatDateToString(Date date) {
+    public static String formatDateToString(Date date) {
         String pattern = "dd/MM/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         return simpleDateFormat.format(date);
     }
 
-    static Date formatStringToTime(String timeString) {
+    public static Date formatStringToTime(String timeString) {
         Date time = null;
         SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
         try {
@@ -35,7 +35,7 @@ public interface DisplayFormatter {
         return time;
     }
 
-    static String formatTimeToString(Date time) {
+    public static String formatTimeToString(Date time) {
         String pattern = "HH:mm";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
         return simpleDateFormat.format(time);
