@@ -3,7 +3,6 @@ package com.example.mareu.ui.new_meeting;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -129,16 +128,24 @@ public class NewMeetingActivity extends AppCompatActivity implements DatePickerD
 
             if (!meetingTitle.isEmpty() && !meetingDate.isEmpty() && startTime != null && endTime != null && !getAttendees().isEmpty()) {
                 meeting = new Meeting(meetingTitle, date, startTime, endTime, room, attendees);
-                meetingsApi.addMeeting(meeting);
-                String text = getString(R.string.valid_meeting, meeting.getTitle());
-                Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
-                toast.show();
-                finish();
+                if (!meetingsApi.availableTiming(meeting)) {
+                    alertEmptyFields();
+                    String text = getString(R.string.invalid_timing);
+                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    meetingsApi.addMeeting(meeting);
+                    String text = getString(R.string.valid_meeting, meeting.getTitle());
+                    Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+                    toast.show();
+                    finish();
+                }
             } else {
                 alertEmptyFields();
                 String text = getString(R.string.invalid_meeting);
                 Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
                 toast.show();
+
             }
         });
 

@@ -1,5 +1,6 @@
 package com.example.mareu.service.meetingService;
 
+import android.util.Log;
 import com.example.mareu.model.Meeting;
 import com.example.mareu.model.Room;
 import com.example.mareu.model.User;
@@ -75,4 +76,17 @@ public class DummyMeetingsApi implements MeetingsApi {
         return DummyUsersGenerator.generateUserEmails();
     }
 
+    @Override
+    public boolean availableTiming(Meeting meeting) {
+        boolean bool = true;
+        for (Meeting meetingChecked : meetingList) {
+            if (meeting.getDate() == meetingChecked.getDate() && meeting.getRoom() == meeting.getRoom()) {
+                if (meeting.getStartTime().before(meetingChecked.getStartTime()) && meeting.getStartTime().after(meetingChecked.getEndTime())) {
+                    bool = false;
+                }
+            }
+        }
+        Log.d("DummyAPI", bool + "");
+        return bool;
+    }
 }

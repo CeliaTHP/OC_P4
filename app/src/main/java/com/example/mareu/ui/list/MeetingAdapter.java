@@ -41,12 +41,16 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder.ViewH
         Meeting meeting = mMeetings.get(position);
         String name = meeting.getTitle();
         String startTime = DisplayFormatter.formatTimeToString(meeting.getStartTime());
+        String endTime = DisplayFormatter.formatTimeToString(meeting.getEndTime());
+        String date = DisplayFormatter.formatDateToString(meeting.getDate());
 
         Room room = meeting.getRoom();
         List<String> attendees = meeting.getAttendees();
         int pic = room.getColor();
 
-        String fullTitle = holder.itemView.getContext().getString(R.string.meeting_title, name, startTime, room.getName());
+        String fullInfos = holder.itemView.getContext().getString(R.string.meeting_date_and_hours,date, startTime, endTime);
+        holder.itemLayoutBinding.meetingInfos.setText(fullInfos);
+        String fullTitle = holder.itemView.getContext().getString(R.string.meeting_title, room.getName(), name);
         holder.itemLayoutBinding.meetingTitle.setText(fullTitle);
 
         StringBuilder builder = new StringBuilder();

@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:ellipsize="end"
-            android:maxEms="12"
+            android:maxEms="14"
             android:maxLines="1"
             android:text="@string/meeting_title"
             android:textColor="@color/black"
@@ -41,20 +41,32 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/meeting_infos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/meeting_date_and_hours"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/meeting_image"
+            app:layout_constraintTop_toBottomOf="@id/meeting_title" />
+
+
+        <TextView
             android:id="@+id/meeting_attendees"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:ellipsize="end"
-            android:maxEms="14"
+            android:maxEms="16"
             android:maxLines="1"
             android:text="@string/meeting_attendees"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/meeting_image"
-            app:layout_constraintTop_toBottomOf="@id/meeting_title" />
+            app:layout_constraintTop_toBottomOf="@id/meeting_infos" />
 
         <ImageButton
             android:id="@+id/meetings_delete_button"

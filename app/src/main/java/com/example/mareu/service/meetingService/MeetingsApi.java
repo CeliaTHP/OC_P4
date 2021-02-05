@@ -23,6 +23,8 @@ public interface MeetingsApi {
 
     void deleteMeeting(Meeting meeting);
 
+    boolean availableTiming(Meeting meeting);
+
     /**
      * Users
      */
